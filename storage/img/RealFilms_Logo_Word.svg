@@ -1,0 +1,11 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="150" viewBox="0 0 600 150">
+  <style>
+    .realfilms { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 72px; }
+    .real { fill: #E63946; }
+    .films { fill: #FFFFFF; }
+  </style>
+  <text x="10" y="100" class="realfilms">
+    <tspan class="real">Real</tspan><tspan class="films">Films</tspan>
+  </text>
+</svg>

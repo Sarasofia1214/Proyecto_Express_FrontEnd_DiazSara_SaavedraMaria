@@ -1,0 +1,83 @@
+@font-face {
+    font-family: font1;
+    src: url(../storage/font/Poppins-Light.ttf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('../storage/img/fondo.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.Contenedor_Inicio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login_container {
+    width: 30vw;
+    padding: 3vh 2vw;
+    background: rgba(133, 131, 131, 0.829); 
+    border-radius: 1vw;
+    text-align: center;
+    font-weight: lighter;
+    color: white;
+}
+
+h1 {
+    font-size: 2vw;
+    font-weight: 100;
+    font-family: "font1";
+    margin-top: 1vh;
+}
+
+.loginText {
+    color: black;
+    width: 90%;
+    margin-top: -2vh;
+    font-size: 1.5vw;
+}
+
+.logo {
+    width: 45vw;
+    margin-bottom: 2vh;
+}
+
+input {
+    width: 90%;
+    padding: 1.2vh 1vw;
+    margin: 1vh 0;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1vw;
+}
+
+.BotonIniciar {
+    width: 95%;
+    padding: 1.2vh 0;
+    background: red;
+    color: white;
+    font-size: 1.2vw;
+    border: none;
+    border-radius: 0.5vw;
+    cursor: pointer;
+}
+
+.BotonIniciar:hover {
+    background: darkred;
+}
+
+.text {
+    text-align: left;
+    color: black;
+    margin: 1vh 0;
+    font-size: 1.5vw;
+}
+
+a{
+    text-decoration: none;
+}
