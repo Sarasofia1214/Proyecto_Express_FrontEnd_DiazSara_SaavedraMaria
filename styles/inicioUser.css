@@ -190,11 +190,6 @@ button.nextPopular { right: 0; }
 
 
 
-
-
-
-
-
 .modalContainer {
   background: #111;
   border-radius: 20px;
@@ -407,4 +402,30 @@ button.nextPopular { right: 0; }
 
 .like-dislike .fa.dislike {
   color: red;
+}
+
+
+
+.modalContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 60%;
+  max-width: 700px;
+  z-index: 1000;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+}
+
+.closeModal {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
 }
