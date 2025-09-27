@@ -127,5 +127,3 @@ document.querySelectorAll(".like-dislike i").forEach(icon => {
     }
   });
 });
-
-document.getElementById("reaction").addEventListener("click", toggleReaction);

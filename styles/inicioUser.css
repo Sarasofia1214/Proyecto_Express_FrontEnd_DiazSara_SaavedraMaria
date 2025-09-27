@@ -338,10 +338,10 @@ button.nextPopular { right: 0; }
 
 .reviewCard {
   display: flex;
-  justify-content: space-between; /* separa izquierda y derecha */
+  justify-content: space-between; 
   align-items: center;
-  background: #1a1a1a;
-  color: #fff;
+  background: #ffffff;
+  color: #000000;
   padding: 1rem;
   border-radius: 10px;
 }
@@ -350,7 +350,7 @@ button.nextPopular { right: 0; }
   display: flex;
   align-items: center;
   gap: 1rem;
-  flex: 1; /* ocupa espacio para empujar el lado derecho */
+  flex: 1; 
 }
 
 .avatar {
