@@ -21,7 +21,7 @@
         </div>
     </header>
   
-<div class="carruselFotos">
+ <div class="carruselFotos">
   <div class="slides">
     <img src="../storage/img/img1.webp" alt="">
     <img src="../storage/img/img2.jpeg" alt="">
@@ -179,85 +179,134 @@
     <button class="nextRecommended">&#10095;</button>
   </div>
 
-
- 
+<!-- MODAL GENERAL -->
 <div class="modalContainer" id="modalGeneral" style="display: none;">
-    <span class="closeModal" id="closeModal">&times;</span> 
-    <div class="img"><img src="../storage/img/img5.jpg" alt=""></div>
-    <div>
-        <p class="titulo">A MINECRAFT MOVIE</p>
-        <p class="summary">In Minecraft, players explore a procedurally generated, three-dimensional world with virtually infinite terrain made up of voxels.</p>
+  <span class="closeModal" id="closeModal">&times;</span> 
+  <div class="img"><img src="../storage/img/img5.jpg" alt=""></div>
+  <div>
+    <p class="titulo">A MINECRAFT MOVIE</p>
+    <p class="summary">
+      In Minecraft, players explore a procedurally generated, three-dimensional 
+      world with virtually infinite terrain made up of voxels.
+    </p>
+  </div>
+
+  <div class="details">
+    <div class="yearcontainer">
+      <p>Category</p>
+      <p>Action</p>
     </div>
-    <div class="details">
-        <div class="yearcontainer">
-              <p>Category</p>
-            <p>Action</p>
-        
-        </div>
-        <div class="categorycontainer">
-            <p>Year</p>
-            <p>2024</p>
-          
-        </div>
-        <div class="popularitycontainer">
-            <p>Popularity</p>
-            <p>95</p>
-        </div>
+    <div class="categorycontainer">
+      <p>Year</p>
+      <p>2024</p>
     </div>
-    <div class="reviewsContainer">
-      <div class="addreviewcontainer">
-         <p>Add Review</p>
-         <img class="plusicon" src="../storage/img/plusicon.webp" alt="">
+    <div class="popularitycontainer">
+      <p>Popularity</p>
+      <p>95</p>
+    </div>
+  </div>
+
+  <!-- plusicon para abrir modal de reseñas -->
+  <div class="reviewsContainer">
+    <div class="addreviewcontainer">
+      <p>Add Review</p>
+      <img class="plusicon" src="../storage/img/plusicon.webp" alt="">
+    </div>
+  </div>
+
+  <!-- 🔥 Aquí se muestran las reseñas ya creadas -->
+  <div class="resenaContainer">
+
+    <div class="reviewCard">
+      <div class="reviewLeft">
+        <div class="avatar">M</div>
+        <div class="reviewText">
+          <p class="reviewName">Maudie</p>
+          <p class="reviewComment">
+            Itaque dolor fuga natus eveniet. Itaque dolor fuga natus eveniet.
+          </p>
+        </div>
       </div>
-    
+      <div class="reviewRight">
+        <div class="reviewScore">7 - 10</div>
+        <div class="like-dislike">
+          <i class="fa fa-thumbs-up"></i>
+          <i class="fa fa-thumbs-down"></i>
+        </div>
+      </div>
     </div>
 
-    <div class="resenaContainer">
-
-  <div class="reviewCard">
-    <div class="reviewLeft">
-      <div class="avatar">M</div>
-      <div class="reviewText">
-        <p class="reviewName">Maudie</p>
-        <p class="reviewComment">Itaque dolor fuga natus eveniet. Itaque dolor fuga natus eveniet.</p>
+    <div class="reviewCard">
+      <div class="reviewLeft">
+        <div class="avatar">D</div>
+        <div class="reviewText">
+          <p class="reviewName">Davion</p>
+          <p class="reviewComment">
+            Laboriosam voluptatibus voluptatibus deserunt repellendus.
+          </p>
+        </div>
+      </div>
+      <div class="reviewRight">
+        <div class="reviewScore">5 - 10</div>
+        <div class="like-dislike">
+          <i class="fa fa-thumbs-up"></i>
+          <i class="fa fa-thumbs-down"></i>
+        </div>
       </div>
     </div>
+
+  </div>
+</div>
 
  
-    <div class="reviewRight">
-      <div class="reviewScore">7 - 10</div>
-      <div class="like-dislike">
-        <i class="fa fa-thumbs-up"></i>
-        <i class="fa fa-thumbs-down"></i>
-      </div>
+ 
+
+<div class="modalContainer" id="modalReviews" style="display: none;">
+  <span class="closeModal">&times;</span> 
+  <div class="img">
+    <img src="../storage/img/img5.jpg" alt="">
+  </div>
+  <div>
+    <p class="titulo">A MINECRAFT MOVIE</p>
+    <p class="summary">
+      In Minecraft, players explore a procedurally generated, three-dimensional 
+      world with virtually infinite terrain made up of voxels.
+    </p>
+  </div>
+
+  <div class="details">
+    <div class="yearcontainer">
+      <p>Year</p>
+      <p>2024</p>
+    </div>
+    <div class="categorycontainer">
+      <p>Category</p>
+      <p>Action</p>
+    </div>
+    <div class="popularitycontainer">
+      <p>Popularity</p>
+      <p>0</p>
     </div>
   </div>
 
+  <div class="reviewsContainer">
+    <textarea 
+      class="reviewInput" 
+      placeholder="Write your review here..."
+      rows="3"></textarea>
 
-  <div class="reviewCard">
-    <div class="reviewLeft">
-      <div class="avatar">D</div>
-      <div class="reviewText">
-        <p class="reviewName">Davion</p>
-        <p class="reviewComment">Laboriosam voluptatibus voluptatibus deserunt repellendus.</p>
-      </div>
+    <div class="rangeContainer">
+      <input type="range" min="0" max="10" value="5" class="rangeSlider">
     </div>
 
-    <div class="reviewRight">
-      <div class="reviewScore">5 - 10</div>
-      <div class="like-dislike">
-        <i class="fa fa-thumbs-up"></i>
-        <i class="fa fa-thumbs-down"></i>
-      </div>
-    </div>
+    <button class="sendReviewBtn">Send Review</button>
   </div>
-
-</div> 
-
+</div>
 
 
 
 
+  
 </body>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../styles/inicioUser.css">

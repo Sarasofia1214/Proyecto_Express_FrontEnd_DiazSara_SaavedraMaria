@@ -429,3 +429,87 @@ button.nextPopular { right: 0; }
   cursor: pointer;
   color: #fff;
 }
+
+
+
+
+.reviewInput {
+  width: 85%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #e6f0ff; 
+  font-size: 14px;
+  color: #000;
+  resize: none;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.rangeContainer {
+  width: 100%;
+  display: flex;
+ justify-content: center;
+  margin: 15px 0;
+}
+
+.rangeSlider {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 6px;
+  background: #d3d3d3;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Estilo barra (Webkit: Chrome, Edge, Safari) */
+.rangeSlider::-webkit-slider-runnable-track {
+  height: 6px;
+  background: #2196f3; /* azul */
+  border-radius: 5px;
+}
+
+.rangeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #2196f3;
+  cursor: pointer;
+  margin-top: -6px; /* centra el círculo */
+}
+
+/* Estilo barra (Firefox) */
+.rangeSlider::-moz-range-track {
+  height: 6px;
+  background: #2196f3;
+  border-radius: 5px;
+}
+
+.rangeSlider::-moz-range-thumb {
+  width: 10px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #2196f3;
+  cursor: pointer;
+}
+
+
+.sendReviewBtn {
+  width: 25%;
+  padding: 12px;
+  background: #e50914; 
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.sendReviewBtn:hover {
+  background: #b20710; 
+}

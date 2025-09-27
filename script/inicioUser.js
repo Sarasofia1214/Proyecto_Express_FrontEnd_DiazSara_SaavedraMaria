@@ -15,8 +15,7 @@ dots.forEach((dot, i) => dot.onclick = () => showSlide(i));
 setInterval(() => showSlide(index + 1), 5000);
 
 
-
-
+// Va pasando las img de las peliculas
 const carrusel = document.querySelector(".carrusel");
 const prevp = document.querySelector(".prevPopular");
 const nextp = document.querySelector(".nextPopular");
@@ -41,69 +40,39 @@ prevp.onclick = () => {
 };
 
 
+// Logica que muestra el modal
 document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("modalGeneral");
-  const closeBtn = document.getElementById("closeModal");
+  const modalGeneral = document.getElementById("modalGeneral");
+  const closeBtnGeneral = document.getElementById("closeModal");
   const peliculas = document.querySelectorAll(".pelicula");
+
+  const modalReviews = document.getElementById("modalReviews");
+  const closeBtnReviews = modalReviews.querySelector(".closeModal");
+  const plusIcon = document.querySelector("#modalGeneral .plusicon");
 
 
   peliculas.forEach(pelicula => {
     pelicula.addEventListener("click", () => {
-      modal.style.display = "block";
+      modalReviews.style.display = "none"; 
+      modalGeneral.style.display = "block";
     });
   });
 
- 
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
+  closeBtnGeneral.addEventListener("click", () => {
+    modalGeneral.style.display = "none";
+    modalReviews.style.display = "none"; 
   });
 
-
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.querySelectorAll(".like-dislike i").forEach(icon => {
-  icon.addEventListener("click", function () {
-    const parent = this.parentElement;
-
-   
-    parent.querySelectorAll("i").forEach(i => {
-      i.classList.remove("like", "dislike");
+  // abrir modal reviews desde el +
+  if (plusIcon) {
+    plusIcon.addEventListener("click", (e) => {
+      e.stopPropagation(); 
+      modalGeneral.style.display = "none";   
+      modalReviews.style.display = "block";  
     });
+  }
 
-
-    if (this.classList.contains("fa-thumbs-up")) {
-      this.classList.add("like");
-    } else {
-      this.classList.add("dislike");
-    }
+  closeBtnReviews.addEventListener("click", () => {
+    modalReviews.style.display = "none";
   });
 });
-
-
-
-
-
-
-
