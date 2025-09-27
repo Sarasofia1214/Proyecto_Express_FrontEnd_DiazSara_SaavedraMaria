@@ -454,7 +454,8 @@ button.nextPopular { right: 0; }
  
 }
 
-.bottonUpdate {
+
+.BottonUpdate {
   background: #e50914;
   color: #fff;
   padding: 0.8rem;
@@ -466,7 +467,7 @@ button.nextPopular { right: 0; }
   transition: background 0.3s;
 }
 
-.bottonUpdate:hover {
+.BottonUpdate:hover {
   background: #b20710;
 }
 

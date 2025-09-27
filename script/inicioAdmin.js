@@ -43,8 +43,6 @@ prevp.onclick = () => {
 };
 
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modalGeneral");
   const closeBtn = document.getElementById("closeModal");
