@@ -1,6 +1,22 @@
+const URL_PEL = 'http://62.169.28.169/movies/all-pel'
+const URL_MPOP = 'http://62.169.28.169/movies/pel-pop'
+
 const slides = document.querySelector(".slides");
 const dots = document.querySelectorAll(".dot");
 let index = 0;
+
+function slidesMain(){
+  fetch(URL_PEL)
+  .then(Response => Response.json())
+  .then(data=>{
+    slides.innerHTML = `
+    <img src="${data[0].backdrop}" alt="">
+    <img src="${data[1].backdrop}" alt="">
+    <img src="${data[2].backdrop}" alt="">
+    `
+  })
+  .catch(error => console.error('Error fetching slides:', error));
+}
 
 const showSlide = (i) => {
   index = (i + dots.length) % dots.length;
@@ -19,6 +35,25 @@ setInterval(() => showSlide(index + 1), 5000);
 const carrusel = document.querySelector(".carrusel");
 const prevp = document.querySelector(".prevPopular");
 const nextp = document.querySelector(".nextPopular");
+
+function popMore(){
+  fetch(URL_MPOP)
+  .then(Response=>Response.json())
+  .then(data=>{
+    let pp = ``
+    for ( let i = 0; i < 20; i++ ){
+      pp += `
+      <div class="pelicula">
+      <img src="${data[i].poster}" alt="">
+      <p class="titulo">${data[i].title}</p>
+      <p class="año">${data[i].year}</p>
+      </div>
+      `
+    }
+    console.log(pp)
+    carrusel.innerHTML = pp
+  })
+}
 
 let offset = 0;
 const step = 200; 
@@ -75,4 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
   closeBtnReviews.addEventListener("click", () => {
     modalReviews.style.display = "none";
   });
+
+  slidesMain();
+  popMore();
 });
+
+
