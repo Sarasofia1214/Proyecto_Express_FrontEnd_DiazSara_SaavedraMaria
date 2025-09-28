@@ -48,23 +48,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.getElementById("closeModal");
   const peliculas = document.querySelectorAll(".pelicula");
 
+    const modalUpdate = document.getElementById("modalUpdate");
+  const closeBtnUpdate = modalUpdate.querySelector("closeModal");
+  const BtnUpdate = document.querySelector("#openUpdate");
+
 
   peliculas.forEach(pelicula => {
     pelicula.addEventListener("click", () => {
+      modalUpdate.style.display = "none"; 
       modal.style.display = "block";
     });
   });
 
  
-  closeBtn.addEventListener("click", () => {
+ closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
+    modalUpdate.style.display = "none"; 
   });
 
+  // abrir modal reviews desde el botton
+  if ( BtnUpdate) {
+    BtnUpdate.addEventListener("click", (e) => {
+      e.stopPropagation(); 
+      modal.style.display = "none";   
+      modalUpdate.style.display = "block";  
+    });
+  }
 
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
+  closeBtnUpdate.addEventListener("click", () => {
+    modalUpdate.style.display = "none";
   });
 });
 

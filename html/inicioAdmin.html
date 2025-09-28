@@ -181,9 +181,6 @@
   </div>
 
 
-
-  <!--Modal general-->
-
 <div class="modalContainer" id="modalGeneral" style="display: none;">
     <span class="closeModal" id="closeModal">&times;</span> 
     <div class="img"><img src="../storage/img/img5.jpg" alt=""></div>
@@ -193,7 +190,7 @@
     </div>
     <div class="details">
         <div class="yearcontainer">
-              <p>Category</p>
+            <p>Category</p>
             <p>Action</p>
         </div>
         <div class="categorycontainer">
@@ -206,15 +203,16 @@
         </div>
     </div>
     <div class="bottonsContainer">
-        <div class="bottonUpdate">Update</div>
+        <!-- 👇 le puse id="openUpdate" para engancharlo en JS -->
+        <div class="bottonUpdate" id="openUpdate">Update</div>
         <div class="bottonDelete">Delete</div>
     </div>
     <div class="reviewsContainer">
         <p>Reviews</p>
         <p>"A MINECRAFT MOVIE"</p>
     </div>
-     <div class="resenaContainer"></div>
-     <div class="resenaContainer">
+    <div class="resenaContainer"></div>
+    <div class="resenaContainer">
         <div class="reviewCard">
             <div class="reviewLeft">
                 <div class="avatar">M</div>
@@ -240,24 +238,41 @@
 </div>
 
 
-
-<!--Modal UPDATE-->
-
-     <!-- <div class="modalContainer">
-          <div class="img"> <img src="../storage/img/img5.jpg" alt=""> </div>
-          <form class="modalForm"> <input type="text" name="titulo" class="tituloInput" value="NEW TITLE"> <textarea
-              name="summary" class="summaryInput"
-              rows="3"> Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur. </textarea>
-            <div class="details">
-              <div class="detailItem"> <label>Category</label> <input type="text" value="new name"> </div>
-              <div class="detailItem"> <label>Year</label> <input type="number" value="0000"> </div>
-              <div class="detailItem"> <label>Popularity</label> <input type="text" value="0"> </div>
-            </div>
-            <div class="updatecontainerbotton"> <button type="submit" class="BottonUpdate">Update</button> </div>
-          </form>
-        </div> -->
-
-
+<div class="modalContainer" id="modalUpdate" style="display: none;">
+  <span class="closeModal" id="closeUpdateModal">&times;</span>
+  
+  <div class="img">
+    <img src="../storage/img/img5.jpg" alt="">
+  </div>
+  
+  <form class="modalForm">
+    <input type="text" name="titulo" class="tituloInput" value="NEW TITLE">
+    
+    <textarea
+      name="summary"
+      class="summaryInput"
+      rows="3">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur.</textarea>
+    
+    <div class="details">
+      <div class="detailItem">
+        <label>Category</label>
+        <input type="text" value="new name">
+      </div>
+      <div class="detailItem">
+        <label>Year</label>
+        <input type="number" value="0000">
+      </div>
+      <div class="detailItem">
+        <label>Popularity</label>
+        <input type="text" value="0">
+      </div>
+    </div>
+    
+    <div class="updatecontainerbotton">
+      <button type="submit" class="BottonUpdate">Update</button>
+    </div>
+  </form>
+</div>
 
 
   
