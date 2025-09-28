@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const peliculas = document.querySelectorAll(".pelicula");
 
   const modalReviews = document.getElementById("modalReviews");
-  const closeBtnReviews = modalReviews.querySelector(".closeModal");
+  const closeBtnReviews = modalReviews.querySelector(".sendReviewBtn");
   const plusIcon = document.querySelector("#modalGeneral .plusicon");
 
 
