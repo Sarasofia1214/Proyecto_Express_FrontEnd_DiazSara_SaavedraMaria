@@ -33,7 +33,7 @@ header {
     flex: 1;
     display: flex;
     justify-content:left;
-    border: 1px solid white;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 2vw;
     padding: 0.7vh 1vw;
     font-size: 1vw;
@@ -44,12 +44,21 @@ header {
     align-items: center;
     gap: 1vw;
 }
-
-.usercontainer h2 {
+.input{
+     flex: 1;
+    display: flex;
+    justify-content:left;
+    border: 1px solid rgb(255, 255, 255);
+    
+    border-radius: 2vw;
+    padding: 0.7vh 1vw;
     font-size: 1vw;
-    margin: 0;
-    font-weight: normal;
+    background-color: #000;
+    color: white;
+
+    
 }
+
 
 .usericon {
     height: 3vh;
@@ -90,22 +99,6 @@ header {
   pointer-events: none;
 }
 
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 50%;
-  z-index: 10;
-}
-.prev { left: 10px; }
-.next { right: 10px; }
-
 
 .dots {
   position: absolute;
@@ -128,7 +121,7 @@ header {
 }
 
 
-.containerPopulares {
+.containerPopulares, .action, .cienciaFiccion {
   position: relative;
   padding: 2vw;
   background: #000000;
@@ -136,10 +129,6 @@ header {
   overflow: hidden;
 }
 
-.containerPopulares h2 {
-  font-size: 2vw;
-  margin-bottom: 1vw;
-}
 
 .carrusel {
   display: flex;
@@ -169,31 +158,6 @@ header {
   font-size: clamp(10px, 1vw, 16px);   
   color: #aaa;
 }
-
-
-button.prevPopular, button.nextPopular {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  color: white;
-  font-size: 2vw;
-  padding: 0.5vw;
-  cursor: pointer;
-}
-
-button.prevPopular { left: 0; }
-button.nextPopular { right: 0; }
-
-
-
-
-
-
-
-
-
 
 .modalContainer {
   background: #111;
@@ -378,23 +342,6 @@ button.nextPopular { right: 0; }
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .modalForm {
   padding: 1.5rem;
   display: flex;
@@ -472,8 +419,6 @@ button.nextPopular { right: 0; }
 }
 
 
-
-
 .modalContainer {
   position: fixed;
   top: 50%;
@@ -496,4 +441,65 @@ button.nextPopular { right: 0; }
   font-size: 28px;
   cursor: pointer;
   color: #fff;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+
+h2{
+  font-size: 1.5vw;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  z-index: 10;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+
+
+.carruselFotos,
+.containerPopulares,
+.Accion,
+.cienciFiccion, .talk {
+  position: relative; /* IMPORTANTE para posicionar los botones dentro */
+}
+
+.carruselFotos .slides img,
+.carrusel .carrusel img {
+  width: 100%;
+  display: block;
+}
+
+.prev,
+.next {
+  position: absolute;   /* Se posiciona respecto al contenedor padre */
+  top: 50%;             /* Centrado vertical */
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;          /* Para que quede sobre las imágenes */
+}
+
+.prev {
+  left: 10px;           /* Ajusta la distancia del lado izquierdo */
+}
+
+.next {
+  right: 10px;          /* Ajusta la distancia del lado derecho */
 }
