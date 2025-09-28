@@ -1,4 +1,3 @@
-//Carrusel imagenes variadas
 const API_URL = "http://62.169.28.169/movies/all-Pel";
 
 const carrusel = document.getElementById('carruselFotos');
@@ -13,31 +12,20 @@ const mostrarSlide = index => {
   const slides = slidesContainer.querySelectorAll('img');
   const dots = dotsContainer.querySelectorAll('.dot');
   slideIndex = (index + slides.length) % slides.length; 
-  
 
-for (let i = 0; i < slides.length; i++) {
-  if (i === slideIndex) {
-    slides[i].style.display = "block";  
-  } else {
-    slides[i].style.display = "none";  
-  }
-}
+  slides.forEach((slide, i) => {
+    slide.style.display = i === slideIndex ? "block" : "none";
+  });
 
-for (let i = 0; i < dots.length; i++) {
-  if (i === slideIndex) {
-    dots[i].classList.add("active");   
-  } else {
-    dots[i].classList.remove("active"); 
-  }
-}
-
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === slideIndex);
+  });
 };
 
-const cargarPeliculas = async () => {
+const cargarPeliculasCarrusel = async () => {
   try {
     const response = await fetch(API_URL);
     const peliculas = await response.json();
-
     const topPeliculas = peliculas.slice(0, 30);
 
     slidesContainer.innerHTML = '';
@@ -45,7 +33,7 @@ const cargarPeliculas = async () => {
 
     topPeliculas.forEach((p, i) => {
       const img = document.createElement('img');
-      img.src = p.backdrop;
+      img.src = p.backdrop || p.poster || "../storage/img/default.jpg";
       slidesContainer.appendChild(img);
 
       const dot = document.createElement('span');
@@ -54,22 +42,23 @@ const cargarPeliculas = async () => {
       dotsContainer.appendChild(dot);
     });
 
-    mostrarSlide(0); 
+    mostrarSlide(0);
   } catch (err) {
-    console.error("Error cargando películas:", err);
+    console.error("❌ Error cargando películas en carrusel:", err);
   }
 };
 
 setInterval(() => {
   mostrarSlide(slideIndex + 1);
-}, 5000); 
+}, 5000);
 
 prevBtn.addEventListener('click', () => mostrarSlide(slideIndex - 1));
 nextBtn.addEventListener('click', () => mostrarSlide(slideIndex + 1));
 
-cargarPeliculas();
+cargarPeliculasCarrusel();
 
-// Carrusel Categorias 
+
+
 
 function initCarrusel(containerId, apiUrl, visible = 5) {
   const container = document.getElementById(containerId);
@@ -80,12 +69,18 @@ function initCarrusel(containerId, apiUrl, visible = 5) {
   let slideIndex = 0;
   let peliculasData = [];
 
-  // Renderizar películas
   function renderPeliculas(peliculas) {
     carrusel.innerHTML = '';
     peliculas.forEach(pelicula => {
       const div = document.createElement('div');
       div.classList.add('pelicula');
+      div.dataset.backdrop = pelicula.backdrop;
+      div.dataset.title = pelicula.title;
+      div.dataset.genres = pelicula.genres;
+      div.dataset.summary = pelicula.summary;
+      div.dataset.year = pelicula.year;
+      div.dataset.popularity = pelicula.popularity;
+
       div.innerHTML = `
         <img src="${pelicula.poster}" alt="${pelicula.title}">
         <p class="titulo">${pelicula.title}</p>
@@ -96,24 +91,23 @@ function initCarrusel(containerId, apiUrl, visible = 5) {
     });
   }
 
-  // Mover carrusel
   function showSlides(index) {
     const total = peliculasData.length;
-    if(index < 0) slideIndex = total - 1;
-    else if(index >= total) slideIndex = 0;
+    if (index < 0) slideIndex = total - 1;
+    else if (index >= total) slideIndex = 0;
     else slideIndex = index;
 
     const offset = -slideIndex * (100 / visible);
     carrusel.style.transform = `translateX(${offset}%)`;
   }
-  if(prevBtn) prevBtn.addEventListener('click', () => showSlides(slideIndex - 1));
-  if(nextBtn) nextBtn.addEventListener('click', () => showSlides(slideIndex + 1));
 
-  // Fetch API con límite de 30 películas
+  if (prevBtn) prevBtn.addEventListener('click', () => showSlides(slideIndex - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => showSlides(slideIndex + 1));
+
   async function fetchPeliculas() {
     try {
       const res = await fetch(apiUrl);
-      if(!res.ok) throw new Error('Error al obtener películas');
+      if (!res.ok) throw new Error('Error al obtener películas');
 
       const data = await res.json();
       peliculasData = data.slice(0, 30);
@@ -124,68 +118,102 @@ function initCarrusel(containerId, apiUrl, visible = 5) {
       console.error(error);
     }
   }
+
   fetchPeliculas();
 }
-
+//
 initCarrusel('containerPopulares', 'http://62.169.28.169/movies/pel-pop');
 initCarrusel('Action', 'http://62.169.28.169/movies/genre-Pel/Accion');
 initCarrusel('Ficcion', 'http://62.169.28.169/movies/genre-Pel/Ciencia%20ficcion');
-initCarrusel('Talk', 'http://62.169.28.169/movies/genre-Pel/Talk')
+initCarrusel('Talk', 'http://62.169.28.169/movies/genre-Pel/Talk');
 
 
 
-//Modal general
-document.addEventListener("DOMContentLoaded", () => {
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById("peliculasContainer");
   const modal = document.getElementById("modalGeneral");
+  const modalContent = modal.querySelector(".modalContent");
   const closeBtn = document.getElementById("closeModal");
 
+  async function cargarPeliculas() {
+    try {
+      const res = await fetch("http://62.169.28.169/movies/all-Pel");
+      const peliculas = await res.json();
 
-//Modal update
-  const modalUpdate = document.getElementById("modalUpdate");
-  const closeBtnUpdate = modalUpdate.querySelector("#closeModal"); // corregido selector
-  const btnUpdate = document.querySelector("#openUpdate");
-
-  // Función para abrir modal principal con info de la película
-  function openModal(pelicula) {
-    if (modalUpdate) modalUpdate.style.display = "none";
-    modal.style.display = "block";
-
-    modal.querySelector(".modal-title").textContent = pelicula.title;
-    modal.querySelector(".modal-poster").src = pelicula.poster;
-    modal.querySelector(".modal-year").textContent = pelicula.year;
-    modal.querySelector(".modal-summary").textContent = pelicula.summary;
+      container.innerHTML = peliculas.map(p => `
+        <div class="pelicula"
+             data-backdrop="${p.backdrop || '../storage/img/default.jpg'}"
+             data-title="${p.title}"
+             data-genres="${p.genres}"
+             data-summary="${p.summary}"
+             data-year="${p.year}"
+             data-popularity="${p.popularity}">
+          <img src="${p.poster || p.backdrop || '../storage/img/default.jpg'}" alt="${p.title}">
+          <p class="titulo">${p.title}</p>
+          <p class="año">${p.year}</p>
+        </div>
+      `).join("");
+    } catch (err) {
+      console.error("❌ Error cargando películas:", err);
+      container.innerHTML = "<p>Error cargando películas</p>";
+    }
   }
 
-  // Delegación de click para películas dinámicas
+  cargarPeliculas();
+
+  // 🟢 Función para abrir modal con los datos
+  function openModal(pelicula) {
+    modalContent.innerHTML = `
+      <div class="img"><img src="${pelicula.backdrop}" alt="${pelicula.title}"></div>
+      <div>
+          <p class="titulo">${pelicula.title}</p>
+          <p class="summary">${pelicula.summary}</p>
+      </div>
+      <div class="details">
+          <div class="yearcontainer">
+              <p>Year</p>
+              <p>${pelicula.year}</p>
+          </div>
+          <div class="categorycontainer">
+              <p>Category</p>
+              <p>${pelicula.genres}</p>
+          </div>
+          <div class="popularitycontainer">
+              <p>Popularity</p>
+              <p>${pelicula.popularity}</p>
+          </div>
+      </div>
+      <div class="bottonsContainer">
+          <div class="bottonUpdate" id="openUpdate">Update</div>
+          <div class="bottonDelete">Delete</div>
+      </div>
+      <div class="reviewsContainer">
+          <p>Reviews</p>
+          <p>"${pelicula.title}"</p>
+      </div>
+    `;
+    modal.style.display = "block";
+  }
+
+  // 🟢 Detectar click en una película del contenedor principal
   document.addEventListener("click", e => {
     const peliculaElem = e.target.closest(".pelicula");
     if (peliculaElem) {
       const pelicula = {
+        backdrop: peliculaElem.dataset.backdrop,
         title: peliculaElem.dataset.title,
-        poster: peliculaElem.dataset.poster,
+        genres: peliculaElem.dataset.genres,
+        summary: peliculaElem.dataset.summary,
         year: peliculaElem.dataset.year,
-        summary: peliculaElem.dataset.summary
+        popularity: peliculaElem.dataset.popularity
       };
       openModal(pelicula);
     }
   });
 
-  // Cerrar modales
+  // 🟢 Cerrar modal
   closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
-    modalUpdate.style.display = "none";
-  });
-
-  if (btnUpdate) {
-    btnUpdate.addEventListener("click", e => {
-      e.stopPropagation();
-      modal.style.display = "none";
-      modalUpdate.style.display = "block";
-    });
-  }
-
-  closeBtnUpdate.addEventListener("click", () => {
-    modalUpdate.style.display = "none";
   });
 });
-
