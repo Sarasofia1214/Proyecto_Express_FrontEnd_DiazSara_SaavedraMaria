@@ -52,6 +52,14 @@ function popMore(){
     }
     console.log(pp)
     carrusel.innerHTML = pp
+    const peliculas = document.querySelectorAll(".pelicula");
+    peliculas.forEach(pelicula => {
+      pelicula.addEventListener("click", () => {
+        modalReviews.style.display = "none"; 
+        modalGeneral.style.display = "block";
+      });
+    });
+    
   })
 }
 
@@ -79,19 +87,13 @@ prevp.onclick = () => {
 document.addEventListener("DOMContentLoaded", () => {
   const modalGeneral = document.getElementById("modalGeneral");
   const closeBtnGeneral = document.getElementById("closeModal");
-  const peliculas = document.querySelectorAll(".pelicula");
 
   const modalReviews = document.getElementById("modalReviews");
   const closeBtnReviews = modalReviews.querySelector(".sendReviewBtn");
   const plusIcon = document.querySelector("#modalGeneral .plusicon");
 
 
-  peliculas.forEach(pelicula => {
-    pelicula.addEventListener("click", () => {
-      modalReviews.style.display = "none"; 
-      modalGeneral.style.display = "block";
-    });
-  });
+  
 
   closeBtnGeneral.addEventListener("click", () => {
     modalGeneral.style.display = "none";
