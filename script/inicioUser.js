@@ -1,6 +1,7 @@
 const URL_PEL = 'http://62.169.28.169/movies/all-pel'
 const URL_MPOP = 'http://62.169.28.169/movies/pel-pop'
 const URL_SEARCH = 'http://62.169.28.169/movies/search/'
+const URL_Pid = 'http://62.169.28.169/resenas/listbymovie/'
 
 const slides = document.querySelector(".slides");
 const dots = document.querySelectorAll(".dot");
@@ -85,7 +86,30 @@ async function popMore(){
             <p>${datas.popularity}</p>
           </div>
           `;
-          const imgEl = document.querySelector('#modalGeneral .img img').src = datas.backdrop;
+          document.querySelector('#modalGeneral .img img').src = datas.backdrop;
+          fetch(`${URL_Pid}${datas._id}`)
+          .then(Response=>Response.json())
+          .then(data=>{
+            const cardRR = document.querySelector('.reviewCard')
+            cardRR.innerHTML = `
+            <div class="reviewLeft">
+              <div class="avatar">M</div>
+              <div class="reviewText">
+                <p class="reviewName">Maudie</p>
+                <p class="reviewComment">
+                  Itaque dolor fuga natus eveniet. Itaque dolor fuga natus eveniet.
+                </p>
+              </div>
+            </div>
+            <div class="reviewRight">
+              <div class="reviewScore">7 - 10</div>
+              <div class="like-dislike">
+                <i class="fa fa-thumbs-up"></i>
+                <i class="fa fa-thumbs-down"></i>
+              </div>
+            </div>
+            `
+          })
         })
       });
     });
