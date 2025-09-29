@@ -23,6 +23,12 @@ Incluye autenticación con JWT, roles de usuario y administrador, validaciones r
 
 -Frontend: HTML, CSS y JavaScript puro.
 Gestión del proyecto: GitHub, metodología SCRUM.
+
+## Login del proyecto:
+http://127.0.0.1:5500/index.html
+
+## Figma 
+https://www.figma.com/design/0NHbceWa4EzQMCy0l7itow/Real-Films?node-id=256-626&t=5t1Cvf13LGEXzRN5-1
 ## Estructura del proyecto
 
 ```
