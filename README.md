@@ -109,6 +109,9 @@ Versionado de la API con semver.
 Consistencia garantizada con transacciones en MongoDB.
 Documentación interactiva con Swagger.
 
+## Documentación completa en Swagger: 
+http://62.169.28.169/docs
+
 ## SCRUM
 [Documento SCRUM](./storage/Planeacion_Del_Proyecto.docx.pdf)
 ## Video Explicación 
