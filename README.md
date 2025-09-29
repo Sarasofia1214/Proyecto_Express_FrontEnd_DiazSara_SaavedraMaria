@@ -1,4 +1,4 @@
-# RealFilms (antes KarenFlix) -  Gestor de Portafolio de Proyectos Freelance
+# RealFilms -  Gestor de Portafolio de Proyectos Freelance
 
 <div align="center">
 <h2>Introducción</h2>
@@ -27,6 +27,12 @@ http://127.0.0.1:5500/index.html
 
 ## Figma 
 https://www.figma.com/design/0NHbceWa4EzQMCy0l7itow/Real-Films?node-id=256-626&t=5t1Cvf13LGEXzRN5-1
+
+
+## Repositorio de Backend:
+https://github.com/Sarasofia1214/Proyecto_Express_BackEnd_DiazSara_SaavedraMaria.git
+
+
 ## Estructura del proyecto
 
 ```
