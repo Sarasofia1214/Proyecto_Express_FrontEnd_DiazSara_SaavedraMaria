@@ -1,4 +1,4 @@
-# RealFilms -  Gestor de Portafolio de Proyectos Freelance
+# RealFilms 
 
 <div align="center">
 <h2>Introducción</h2>
@@ -14,7 +14,7 @@ Incluye autenticación con JWT, roles de usuario y administrador, validaciones r
 - Permitir a los usuarios crear reseñas, calificar y reaccionar (likes/dislikes).
 - Gestionar películas y categorías con control de administrador.
 - Calcular un ranking ponderado de películas basado en calificaciones, popularidad y reacciones.
-- Desarrollar un frontend amigable, conectado al backend mediante API REST.
+- Desarrollar un fontend amigable, conectado al backend mediante API REST.
 
 ## Tecnologías usadas
 -Backend: Node.js, Express, MongoDB (driver oficial), JWT, bcrypt, dotenv, express-rate-limit, express-validator, swagger-ui-express, passport-jwt, semver.
