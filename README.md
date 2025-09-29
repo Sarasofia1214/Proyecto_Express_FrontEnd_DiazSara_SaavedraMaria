@@ -1,6 +1,5 @@
 # RealFilms (antes KarenFlix) -  Gestor de Portafolio de Proyectos Freelance
 
-
 <div align="center">
 <h2>Introducción</h2>
 </div>
@@ -9,7 +8,6 @@ RealFilms (nombre inicial KarenFlix) es una aplicación full-stack que permite a
 
 El proyecto está dividido en backend (Node.js + Express + MongoDB) y frontend (HTML, CSS y JS puro).
 Incluye autenticación con JWT, roles de usuario y administrador, validaciones robustas, documentación de endpoints con Swagger y manejo transaccional en MongoDB.
-
 
 ## Objetivos
 - Implementar un sistema de gestión de usuarios con autenticación segura.
@@ -54,8 +52,9 @@ https://www.figma.com/design/0NHbceWa4EzQMCy0l7itow/Real-Films?node-id=256-626&t
 └── index.html
 ```
 
-⚙️ Instalación y ejecución
+## Instalación y ejecución
 Backend
+
 Clonar el repositorio:
 git clone <url-del-repo-backend>
 
@@ -63,13 +62,6 @@ Instalar dependencias:
 npm install
 
 Configurar variables de entorno en .env:
-PORT=4000
-MONGODB_URI=mongodb+srv://...
-JWT_SECRET=supersecret
-JWT_EXPIRE=1d
-
-Ejecutar en modo desarrollo:
-npm run dev
 
 Frontend
 Clonar el repositorio:
@@ -114,3 +106,5 @@ Documentación interactiva con Swagger.
 ## SCRUM
 [Documento SCRUM](./storage/Planeacion_Del_Proyecto.docx.pdf)
 ## Video Explicación 
+
+https://drive.google.com/drive/folders/15uP-tMlGp-6DPmJ2-WD7Mb2sHbyIc_CT?usp=drive_link

@@ -1,6 +1,4 @@
-// ==========================
-// 🔹 Carrusel principal (header)
-// ==========================
+
 const API_URL = "http://62.169.28.169/movies/all-Pel";
 
 const carrusel = document.getElementById('carruselFotos');
