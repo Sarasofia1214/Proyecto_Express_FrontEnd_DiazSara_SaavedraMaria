@@ -1,3 +1,6 @@
+// ==========================
+// 🔹 Carrusel principal (header)
+// ==========================
 const API_URL = "http://62.169.28.169/movies/all-Pel";
 
 const carrusel = document.getElementById('carruselFotos');
@@ -48,17 +51,10 @@ const cargarPeliculasCarrusel = async () => {
   }
 };
 
-setInterval(() => {
-  mostrarSlide(slideIndex + 1);
-}, 5000);
-
+setInterval(() => mostrarSlide(slideIndex + 1), 5000);
 prevBtn.addEventListener('click', () => mostrarSlide(slideIndex - 1));
 nextBtn.addEventListener('click', () => mostrarSlide(slideIndex + 1));
-
 cargarPeliculasCarrusel();
-
-
-
 
 function initCarrusel(containerId, apiUrl, visible = 5) {
   const container = document.getElementById(containerId);
@@ -74,6 +70,7 @@ function initCarrusel(containerId, apiUrl, visible = 5) {
     peliculas.forEach(pelicula => {
       const div = document.createElement('div');
       div.classList.add('pelicula');
+      div.dataset.id = pelicula.id;
       div.dataset.backdrop = pelicula.backdrop;
       div.dataset.title = pelicula.title;
       div.dataset.genres = pelicula.genres;
@@ -121,7 +118,6 @@ function initCarrusel(containerId, apiUrl, visible = 5) {
 
   fetchPeliculas();
 }
-//
 initCarrusel('containerPopulares', 'http://62.169.28.169/movies/pel-pop');
 initCarrusel('Action', 'http://62.169.28.169/movies/genre-Pel/Accion');
 initCarrusel('Ficcion', 'http://62.169.28.169/movies/genre-Pel/Ciencia%20ficcion');
@@ -129,91 +125,164 @@ initCarrusel('Talk', 'http://62.169.28.169/movies/genre-Pel/Talk');
 
 
 
+const containerPeliculas = document.getElementById("peliculasContainer");
+const modalGeneral = document.getElementById("modalGeneral");
+const modalContent = modalGeneral.querySelector(".modalContent");
+const closeModal = document.getElementById("closeModal");
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const container = document.getElementById("peliculasContainer");
-  const modal = document.getElementById("modalGeneral");
-  const modalContent = modal.querySelector(".modalContent");
-  const closeBtn = document.getElementById("closeModal");
-
-  async function cargarPeliculas() {
-    try {
-      const res = await fetch("http://62.169.28.169/movies/all-Pel");
-      const peliculas = await res.json();
-
-      container.innerHTML = peliculas.map(p => `
-        <div class="pelicula"
-             data-backdrop="${p.backdrop || '../storage/img/default.jpg'}"
-             data-title="${p.title}"
-             data-genres="${p.genres}"
-             data-summary="${p.summary}"
-             data-year="${p.year}"
-             data-popularity="${p.popularity}">
-          <img src="${p.poster || p.backdrop || '../storage/img/default.jpg'}" alt="${p.title}">
-          <p class="titulo">${p.title}</p>
-          <p class="año">${p.year}</p>
-        </div>
-      `).join("");
-    } catch (err) {
-      console.error("❌ Error cargando películas:", err);
-      container.innerHTML = "<p>Error cargando películas</p>";
-    }
+async function cargarPeliculas() {
+  try {
+    const res = await fetch(API_URL);
+    const peliculas = await res.json();
+    containerPeliculas.innerHTML = peliculas.map(p => `
+      <div class="pelicula"
+           data-id="${p.id}"
+           data-backdrop="${p.backdrop || '../storage/img/default.jpg'}"
+           data-title="${p.title}"
+           data-genres="${p.genres}"
+           data-summary="${p.summary}"
+           data-year="${p.year}"
+           data-popularity="${p.popularity}">
+        <img src="${p.poster || p.backdrop || '../storage/img/default.jpg'}" alt="${p.title}">
+        <p class="titulo">${p.title}</p>
+        <p class="año">${p.year}</p>
+      </div>
+    `).join("");
+  } catch (err) {
+    console.error("❌ Error cargando películas:", err);
+    containerPeliculas.innerHTML = "<p>Error cargando películas</p>";
   }
+}
+cargarPeliculas();
 
-  cargarPeliculas();
+function openModal(pelicula) {
+  modalContent.innerHTML = `
+    <div class="img"><img src="${pelicula.backdrop}" alt="${pelicula.title}"></div>
+    <div>
+        <p class="titulo">${pelicula.title}</p>
+        <p class="summary">${pelicula.summary}</p>
+    </div>
+    <div class="details">
+        <div class="yearcontainer"><p>Year</p><p>${pelicula.year}</p></div>
+        <div class="categorycontainer"><p>Category</p><p>${pelicula.genres}</p></div>
+        <div class="popularitycontainer"><p>Popularity</p><p>${pelicula.popularity}</p></div>
+    </div>
+    <div class="bottonsContainer">
+        <div class="bottonUpdate" id="openUpdate">Update</div>
+        <div class="bottonDelete">Delete</div>
+    </div>
+    <div class="reviewsContainer">
+        <p>Reviews</p>
+        <p>"${pelicula.title}"</p>
+    </div>
+  `;
+  modalGeneral.style.display = "block";
+}
 
-  // 🟢 Función para abrir modal con los datos
-  function openModal(pelicula) {
-    modalContent.innerHTML = `
-      <div class="img"><img src="${pelicula.backdrop}" alt="${pelicula.title}"></div>
-      <div>
-          <p class="titulo">${pelicula.title}</p>
-          <p class="summary">${pelicula.summary}</p>
-      </div>
-      <div class="details">
-          <div class="yearcontainer">
-              <p>Year</p>
-              <p>${pelicula.year}</p>
-          </div>
-          <div class="categorycontainer">
-              <p>Category</p>
-              <p>${pelicula.genres}</p>
-          </div>
-          <div class="popularitycontainer">
-              <p>Popularity</p>
-              <p>${pelicula.popularity}</p>
-          </div>
-      </div>
-      <div class="bottonsContainer">
-          <div class="bottonUpdate" id="openUpdate">Update</div>
-          <div class="bottonDelete">Delete</div>
-      </div>
-      <div class="reviewsContainer">
-          <p>Reviews</p>
-          <p>"${pelicula.title}"</p>
-      </div>
-    `;
-    modal.style.display = "block";
+document.addEventListener("click", e => {
+  const peliculaElem = e.target.closest(".pelicula");
+  if (peliculaElem) {
+    const pelicula = {
+      id: peliculaElem.dataset.id,
+      backdrop: peliculaElem.dataset.backdrop,
+      title: peliculaElem.dataset.title,
+      genres: peliculaElem.dataset.genres,
+      summary: peliculaElem.dataset.summary,
+      year: peliculaElem.dataset.year,
+      popularity: peliculaElem.dataset.popularity,
+      poster: peliculaElem.querySelector("img").src
+    };
+    openModal(pelicula);
   }
+});
 
-  // 🟢 Detectar click en una película del contenedor principal
-  document.addEventListener("click", e => {
-    const peliculaElem = e.target.closest(".pelicula");
-    if (peliculaElem) {
-      const pelicula = {
-        backdrop: peliculaElem.dataset.backdrop,
-        title: peliculaElem.dataset.title,
-        genres: peliculaElem.dataset.genres,
-        summary: peliculaElem.dataset.summary,
-        year: peliculaElem.dataset.year,
-        popularity: peliculaElem.dataset.popularity
-      };
-      openModal(pelicula);
-    }
+closeModal.addEventListener("click", () => {
+  modalGeneral.style.display = "none";
+});
+
+
+// ==========================
+// 🔹 Modal Update
+// ==========================
+const modalUpdate = document.getElementById("modalUpdate");
+const closeUpdateModal = document.getElementById("closeUpdateModal");
+
+const updateImg = document.getElementById("updateImg");
+const updateTitulo = document.getElementById("updateTitulo");
+const updateSummary = document.getElementById("updateSummary");
+const updateCategory = document.getElementById("updateCategory");
+const updateYear = document.getElementById("updateYear");
+const updatePopularity = document.getElementById("updatePopularity");
+
+let peliculaEnEdicion = null;
+
+function abrirModalUpdate(pelicula) {
+  peliculaEnEdicion = pelicula.id;
+
+  updateImg.src = pelicula.poster;
+  updateTitulo.value = pelicula.title;
+  updateSummary.value = pelicula.summary;
+  updateCategory.value = pelicula.genres;
+  updateYear.value = pelicula.year;
+  updatePopularity.value = pelicula.popularity;
+
+  modalUpdate.style.display = "flex";
+}
+
+closeUpdateModal.addEventListener("click", () => {
+  modalUpdate.style.display = "none";
+});
+
+// Abrir modal update desde el botón Update
+document.addEventListener("click", e => {
+  if (e.target && e.target.id === "openUpdate") {
+    modalGeneral.style.display = "none";
+
+    const pelicula = {
+      id: peliculaEnEdicion,
+      title: document.querySelector("#modalGeneral .titulo").textContent,
+      summary: document.querySelector("#modalGeneral .summary").textContent,
+      genres: document.querySelector("#modalGeneral .categorycontainer p:nth-child(2)").textContent,
+      year: document.querySelector("#modalGeneral .yearcontainer p:nth-child(2)").textContent,
+      popularity: document.querySelector("#modalGeneral .popularitycontainer p:nth-child(2)").textContent,
+      poster: document.querySelector("#modalGeneral img").src
+    };
+
+    abrirModalUpdate(pelicula);
+  }
+});
+
+// Submit Update (PUT)
+document.getElementById("updateForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const datosActualizados = {
+  title: updateTitulo.value,
+  summary: updateSummary.value,
+  year: parseInt(updateYear.value),   // número
+  popularity: parseFloat(updatePopularity.value), // número
+  poster: updateImg.value,    // URL del poster
+  backdrop: updateImg.value,  // puedes usar otra URL si la tienes
+  genres: updateCategory.value
+};
+
+try {
+  const res = await fetch(`http://62.169.28.169/movies/update-Pel/${peliculaEnEdicion}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(datosActualizados)
   });
 
-  // 🟢 Cerrar modal
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
+  if (!res.ok) throw new Error(`❌ Error ${res.status}`);
+
+  const data = await res.json();
+  console.log("✅ Película actualizada:", data);
+
+  modalUpdate.style.display = "none";
+  location.reload();
+} catch (err) {
+  console.error(err);
+  alert("Hubo un error al actualizar la película");
+}
+
 });

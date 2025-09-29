@@ -70,35 +70,35 @@
   <div class="modalContent"></div>
 </div>
 
-
+<!-- Modal Update -->
 <div class="modalContainer" id="modalUpdate" style="display: none;">
-
   <span class="closeModal" id="closeUpdateModal">&times;</span>
   
   <div class="img">
-    <img src="../storage/img/img5.jpg" alt="">
+    <img id="updateImg" src="../storage/img/img5.jpg" alt="">
   </div>
   
-  <form class="modalForm">
-    <input type="text" name="titulo" class="tituloInput" value="NEW TITLE">
-    
+  <form class="modalForm" id="updateForm">
+    <input type="text" name="titulo" class="tituloInput" id="updateTitulo" value="">
+
     <textarea
       name="summary"
       class="summaryInput"
-      rows="3">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur.</textarea>
+      rows="3"
+      id="updateSummary"></textarea>
     
     <div class="details">
       <div class="detailItem">
         <label>Category</label>
-        <input type="text" value="new name">
+        <input type="text" id="updateCategory">
       </div>
       <div class="detailItem">
         <label>Year</label>
-        <input type="number" value="0000">
+        <input type="number" id="updateYear">
       </div>
       <div class="detailItem">
         <label>Popularity</label>
-        <input type="text" value="0">
+        <input type="text" id="updatePopularity">
       </div>
     </div>
     
@@ -107,6 +107,7 @@
     </div>
   </form>
 </div>
+
 
 
   
