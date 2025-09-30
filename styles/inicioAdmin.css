@@ -33,10 +33,24 @@ header {
     flex: 1;
     display: flex;
     justify-content:left;
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid rgb(255, 255, 255);
+    background-color: #000;
     border-radius: 2vw;
-    padding: 0.7vh 1vw;
+    padding: 0.7vh 2vw;
     font-size: 1vw;
+}
+.containerbusqueda{
+
+
+    flex: 1;
+    display: flex;
+    justify-content:left;
+ 
+    background-color: #000;
+    border-radius: 2vw;
+    padding: 0.7vh 2vw;
+    font-size: 1vw;
+
 }
 
 .usercontainer {
@@ -58,7 +72,6 @@ header {
 
     
 }
-
 
 .usericon {
     height: 3vh;
@@ -121,7 +134,7 @@ header {
 }
 
 
-.containerPopulares, .action, .cienciaFiccion {
+.containerPeliculas {
   position: relative;
   padding: 2vw;
   background: #000000;
@@ -471,9 +484,7 @@ h2{
 
 
 .carruselFotos,
-.containerPopulares,
-.Accion,
-.cienciFiccion, .talk {
+.containerPeliculas {
   position: relative; /* IMPORTANTE para posicionar los botones dentro */
 }
 

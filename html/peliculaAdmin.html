@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle Película</title>
+  <link rel="stylesheet" href="../styles/inicioUser.css">
+</head>
+<body>
+     <header>
+        <div class="encabezado">
+            <img class="logo" src="../storage/img/RealFilms_Logo_Word.svg" alt="">
+            <h1><a href="../html/inicioAdmin.html">HOME</a></h1>
+            <h1><a href="#containerCarruseles">CATEGORIES</a></h1>
+            <h1>USERS</h1>
+            <div class="containerbusqueda">
+              <input class="buscador" type="text" placeholder="SEARCH">
+                <img class="lupa" src="" alt="">
+            </div>
+            <div class="usercontainer">
+                <h2>user@gmail.com</h2>
+                <img class="usericon" src="../storage/img/usericon.webp" alt="">
+            </div>
+        </div>
+    </header>
+
+  <div id="peliculaDetalle"></div>
+
+<div class="modalContainer" id="modalUpdate" style="display: none;">
+  <div class="modalContent">
+    <span class="closeModal" id="closeUpdateModal">&times;</span>
+
+    <div class="img">
+      <img id="updateImg" src="../storage/img/img5.jpg" alt="">
+    </div>
+
+    <form class="modalForm" id="updateForm">
+      <input type="text" id="updateTitulo" name="titulo" placeholder="Título">
+      <textarea id="updateSummary" name="summary" placeholder="Resumen"></textarea>
+      
+      <input type="text" id="updateCategory" name="category" placeholder="Categoría">
+      <input type="number" id="updateYear" name="year" placeholder="Año">
+      <input type="number" id="updatePopularity" name="popularity" placeholder="Popularidad">
+
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+
+</body>
+  <script src="../script/peliculasAdmin.js"></script>
+  <link rel="stylesheet" href="../styles/peliculasAdmin.css">
+</html>

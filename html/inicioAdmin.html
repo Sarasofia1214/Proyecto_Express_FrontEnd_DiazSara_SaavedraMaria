@@ -10,9 +10,9 @@
         <div class="encabezado">
             <img class="logo" src="../storage/img/RealFilms_Logo_Word.svg" alt="">
             <h1><a href="#carruselFotos">HOME</a></h1>
-            <h1><a href="#containerPopulares">CATEGORIES</a></h1>
+            <h1><a href="#containerCarruseles">CATEGORIES</a></h1>
             <h1>USERS</h1>
-            <div class="buscador">
+            <div class="containerbusqueda">
               <input class="buscador" type="text" placeholder="SEARCH">
                 <img class="lupa" src="" alt="">
             </div>
@@ -34,80 +34,10 @@
 </div>
 
 
-<div class="containerPopulares" id="containerPopulares">
-  <h2>Most Popular</h2>
-  <div class="carrusel"></div>
+ <div id="containerCarruseles">
   <button class="prev">&#10094;</button>
   <button class="next">&#10095;</button>
-</div>
-
-
-<div class="Accion" id="Action">
-  <h2>Acción</h2>
-  <div class="carrusel"></div>
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-</div>
-
-
-<div class="cienciFiccion" id="Ficcion">
-  <h2>Ciencia Ficcion</h2>
-  <div class="carrusel"></div>
-  <button class="prev">&#10094;</button>
-  <button class="next">&#10095;</button>
-</div>
-
-<div class="talk" id="Talk">
-  <h2>Comentala</h2>
-  <div class="carrusel"></div>
-  <button class="prev">&#10094;</button>
-  <button class="next">&#10095;</button>
-</div>
-
-
-<div class="modalContainer" id="modalGeneral" style="display:none;">
-  <span class="closeModal" id="closeModal">&times;</span>
-  <div class="modalContent"></div>
-</div>
-
-<!-- Modal Update -->
-<div class="modalContainer" id="modalUpdate" style="display: none;">
-  <span class="closeModal" id="closeUpdateModal">&times;</span>
-  
-  <div class="img">
-    <img id="updateImg" src="../storage/img/img5.jpg" alt="">
-  </div>
-  
-  <form class="modalForm" id="updateForm">
-    <input type="text" name="titulo" class="tituloInput" id="updateTitulo" value="">
-
-    <textarea
-      name="summary"
-      class="summaryInput"
-      rows="3"
-      id="updateSummary"></textarea>
-    
-    <div class="details">
-      <div class="detailItem">
-        <label>Category</label>
-        <input type="text" id="updateCategory">
-      </div>
-      <div class="detailItem">
-        <label>Year</label>
-        <input type="number" id="updateYear">
-      </div>
-      <div class="detailItem">
-        <label>Popularity</label>
-        <input type="text" id="updatePopularity">
-      </div>
-    </div>
-    
-    <div class="updatecontainerbotton">
-      <button type="submit" class="BottonUpdate">Update</button>
-    </div>
-  </form>
-</div>
-
+ </div>
 
 
   

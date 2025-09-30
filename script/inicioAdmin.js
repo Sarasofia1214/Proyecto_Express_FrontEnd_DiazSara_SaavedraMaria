@@ -31,7 +31,6 @@ const cargarPeliculasCarrusel = async () => {
 
     slidesContainer.innerHTML = '';
     dotsContainer.innerHTML = '';
-
     topPeliculas.forEach((p, i) => {
       const img = document.createElement('img');
       img.src = p.backdrop || p.poster || "../storage/img/default.jpg";
@@ -45,9 +44,9 @@ const cargarPeliculasCarrusel = async () => {
 
     mostrarSlide(0);
   } catch (err) {
-    console.error("❌ Error cargando películas en carrusel:", err);
   }
 };
+
 
 setInterval(() => mostrarSlide(slideIndex + 1), 5000);
 prevBtn.addEventListener('click', () => mostrarSlide(slideIndex - 1));
@@ -63,224 +62,161 @@ function initCarrusel(containerId, apiUrl, visible = 5) {
   let slideIndex = 0;
   let peliculasData = [];
 
-  function renderPeliculas(peliculas) {
-    carrusel.innerHTML = '';
-    peliculas.forEach(pelicula => {
-      const div = document.createElement('div');
-      div.classList.add('pelicula');
-      div.dataset.id = pelicula.id;
-      div.dataset.backdrop = pelicula.backdrop;
-      div.dataset.title = pelicula.title;
-      div.dataset.genres = pelicula.genres;
-      div.dataset.summary = pelicula.summary;
-      div.dataset.year = pelicula.year;
-      div.dataset.popularity = pelicula.popularity;
 
-      div.innerHTML = `
-        <img src="${pelicula.poster}" alt="${pelicula.title}">
-        <p class="titulo">${pelicula.title}</p>
-        <p class="año">${pelicula.year}</p>
-      `;
-      div.addEventListener('click', () => openModal(pelicula));
-      carrusel.appendChild(div);
-    });
-  }
 
-  function showSlides(index) {
-    const total = peliculasData.length;
-    if (index < 0) slideIndex = total - 1;
-    else if (index >= total) slideIndex = 0;
-    else slideIndex = index;
+}
 
-    const offset = -slideIndex * (100 / visible);
-    carrusel.style.transform = `translateX(${offset}%)`;
-  }
+function initCarrusel(containerId, apiUrl, visible = 5) {
+  const container = document.getElementById(containerId);
+  const carrusel = container.querySelector('.carrusel');
+  const prevBtn = container.querySelector('.prev');
+  const nextBtn = container.querySelector('.next');
 
-  if (prevBtn) prevBtn.addEventListener('click', () => showSlides(slideIndex - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => showSlides(slideIndex + 1));
+  let scrollAmount = 0;
 
-  async function fetchPeliculas() {
+  async function cargarPeliculas() {
     try {
       const res = await fetch(apiUrl);
-      if (!res.ok) throw new Error('Error al obtener películas');
-
+      if (!res.ok) throw new Error("Error al cargar películas");
       const data = await res.json();
-      peliculasData = data.slice(0, 30);
 
-      renderPeliculas(peliculasData);
-      showSlides(0);
+      carrusel.innerHTML = "";
+      data.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("pelicula");
+
+        card.innerHTML = `
+          <img src="${p.poster || p.backdrop || "../storage/img/img5.jpg"}" alt="${p.titulo}">
+          <div class="info">
+            <h3>${p.title || "Sin título"}</h3>
+            <p>${p.year || ""}</p>
+          </div>
+        `;
+
+        carrusel.appendChild(card);
+      });
     } catch (error) {
       console.error(error);
     }
   }
 
-  fetchPeliculas();
+
+  cargarPeliculas();
 }
-initCarrusel('containerPopulares', 'http://62.169.28.169/movies/pel-pop');
-initCarrusel('Action', 'http://62.169.28.169/movies/genre-Pel/Accion');
-initCarrusel('Ficcion', 'http://62.169.28.169/movies/genre-Pel/Ciencia%20ficcion');
-initCarrusel('Talk', 'http://62.169.28.169/movies/genre-Pel/Talk');
 
 
+const categorias = [
+  { id: "Populares", titulo: "Most popular", url: "http://62.169.28.169/movies/pel-pop" },
+  { id: "Accion", titulo: "Accion", url: "http://62.169.28.169/movies/genre-Pel/Accion" },
+  { id: "ActionAdventure", titulo: "Action & Adventure", url: "http://62.169.28.169/movies/genre-Pel/Action%20%26%20adventure" },
+  { id: "Animacion", titulo: "Animacion", url: "http://62.169.28.169/movies/genre-Pel/Animacion" },
+  { id: "Aventura", titulo: "Aventura", url: "http://62.169.28.169/movies/genre-Pel/Aventura" },
+  { id: "Belica", titulo: "Belica", url: "http://62.169.28.169/movies/genre-Pel/Belica" },
+  { id: "CienciaFiccion", titulo: "Ciencia Ficcion", url: "http://62.169.28.169/movies/genre-Pel/Ciencia%20ficcion" },
+  { id: "Comedia", titulo: "Comedia", url: "http://62.169.28.169/movies/genre-Pel/Comedia" },
+  { id: "Crimen", titulo: "Crimen", url: "http://62.169.28.169/movies/genre-Pel/Crimen" },
+  { id: "Documental", titulo: "Documental", url: "http://62.169.28.169/movies/genre-Pel/Documental" },
+  { id: "Drama", titulo: "Drama", url: "http://62.169.28.169/movies/genre-Pel/Drama" },
+  { id: "Familia", titulo: "Familia", url: "http://62.169.28.169/movies/genre-Pel/Familia" },
+  { id: "Fantasia", titulo: "Fantasia", url: "http://62.169.28.169/movies/genre-Pel/Fantasia" },
+  { id: "Historia", titulo: "Historia", url: "http://62.169.28.169/movies/genre-Pel/Historia" },
+  { id: "Kids", titulo: "Kids", url: "http://62.169.28.169/movies/genre-Pel/Kids" },
+  { id: "Misterio", titulo: "Misterio", url: "http://62.169.28.169/movies/genre-Pel/Misterio" },
+  { id: "Musica", titulo: "Musica", url: "http://62.169.28.169/movies/genre-Pel/Musica" },
+  { id: "News", titulo: "News", url: "http://62.169.28.169/movies/genre-Pel/News" },
+  { id: "PeliculaTv", titulo: "Pelicula de TV", url: "http://62.169.28.169/movies/genre-Pel/Pelicula%20de%20tv" },
+  { id: "Reality", titulo: "Reality", url: "http://62.169.28.169/movies/genre-Pel/Reality" },
+  { id: "Romance", titulo: "Romance", url: "http://62.169.28.169/movies/genre-Pel/Romance" },
+  { id: "SciFiFantasy", titulo: "Sci-Fi & Fantasy", url: "http://62.169.28.169/movies/genre-Pel/Sci-fi%20%26%20fantasy" },
+  { id: "Soap", titulo: "Soap", url: "http://62.169.28.169/movies/genre-Pel/Soap" },
+  { id: "Suspense", titulo: "Suspense", url: "http://62.169.28.169/movies/genre-Pel/Suspense" },
+  { id: "Talk", titulo: "Talk", url: "http://62.169.28.169/movies/genre-Pel/Talk" },
+  { id: "Terror", titulo: "Terror", url: "http://62.169.28.169/movies/genre-Pel/Terror" },
+  { id: "WarPolitics", titulo: "War & Politics", url: "http://62.169.28.169/movies/genre-Pel/War%20%26%20politics" },
+  { id: "Western", titulo: "Western", url: "http://62.169.28.169/movies/genre-Pel/Western" }
+];
 
-const containerPeliculas = document.getElementById("peliculasContainer");
-const modalGeneral = document.getElementById("modalGeneral");
-const modalContent = modalGeneral.querySelector(".modalContent");
-const closeModal = document.getElementById("closeModal");
 
-async function cargarPeliculas() {
-  try {
-    const res = await fetch(API_URL);
-    const peliculas = await res.json();
-    containerPeliculas.innerHTML = peliculas.map(p => `
-      <div class="pelicula"
-           data-id="${p.id}"
-           data-backdrop="${p.backdrop || '../storage/img/default.jpg'}"
-           data-title="${p.title}"
-           data-genres="${p.genres}"
-           data-summary="${p.summary}"
-           data-year="${p.year}"
-           data-popularity="${p.popularity}">
-        <img src="${p.poster || p.backdrop || '../storage/img/default.jpg'}" alt="${p.title}">
-        <p class="titulo">${p.title}</p>
-        <p class="año">${p.year}</p>
-      </div>
-    `).join("");
-  } catch (err) {
-    console.error("❌ Error cargando películas:", err);
-    containerPeliculas.innerHTML = "<p>Error cargando películas</p>";
-  }
-}
-cargarPeliculas();
+const containerCarruseles = document.getElementById("containerCarruseles");
 
-function openModal(pelicula) {
-  modalContent.innerHTML = `
-    <div class="img"><img src="${pelicula.backdrop}" alt="${pelicula.title}"></div>
-    <div>
-        <p class="titulo">${pelicula.title}</p>
-        <p class="summary">${pelicula.summary}</p>
-    </div>
-    <div class="details">
-        <div class="yearcontainer"><p>Year</p><p>${pelicula.year}</p></div>
-        <div class="categorycontainer"><p>Category</p><p>${pelicula.genres}</p></div>
-        <div class="popularitycontainer"><p>Popularity</p><p>${pelicula.popularity}</p></div>
-    </div>
-    <div class="bottonsContainer">
-        <div class="bottonUpdate" id="openUpdate">Update</div>
-        <div class="bottonDelete">Delete</div>
-    </div>
-    <div class="reviewsContainer">
-        <p>Reviews</p>
-        <p>"${pelicula.title}"</p>
+categorias.forEach(cat => {
+  const section = document.createElement("section");
+  section.classList.add("categoria");
+
+  section.innerHTML = `
+    <h2>${cat.titulo}</h2>
+    <div class="carruselContainer" id="${cat.id}">
+      <div class="carrusel"></div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
     </div>
   `;
-  modalGeneral.style.display = "block";
+
+  containerCarruseles.appendChild(section);
+
+
+  initCarrusel(cat.id, cat.url);
+});
+
+
+function initCarrusel(containerId, apiUrl) {
+  const container = document.getElementById(containerId);
+  const carrusel = container.querySelector('.carrusel');
+  const prevBtn = container.querySelector('.prev');
+  const nextBtn = container.querySelector('.next');
+
+  async function cargarPeliculas() {
+    try {
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+
+      carrusel.innerHTML = "";
+      data.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("pelicula");
+
+        card.innerHTML = `
+          <img src="${p.poster || p.backdrop || '../storage/img/img5.jpg'}" alt="${p.title || p.name}">
+          <div class="info">
+            <h3>${p.title || p.name || "Sin título"}</h3>
+          </div>
+        `;
+
+        const theId = p._id || p.id;
+        card.addEventListener("click", () => {
+          if (!theId) {
+            console.warn("ID no encontrado para película:", p);
+            return;
+          }
+         window.location.href = `peliculaAdmin.html?id=${theId}`;
+
+        });
+
+        carrusel.appendChild(card);
+      });
+    } catch (error) {
+      console.error("Error al cargar películas", error);
+    }
+  }
+
+  cargarPeliculas();
 }
 
-document.addEventListener("click", e => {
-  const peliculaElem = e.target.closest(".pelicula");
-  if (peliculaElem) {
-    const pelicula = {
-      id: peliculaElem.dataset.id,
-      backdrop: peliculaElem.dataset.backdrop,
-      title: peliculaElem.dataset.title,
-      genres: peliculaElem.dataset.genres,
-      summary: peliculaElem.dataset.summary,
-      year: peliculaElem.dataset.year,
-      popularity: peliculaElem.dataset.popularity,
-      poster: peliculaElem.querySelector("img").src
-    };
-    openModal(pelicula);
-  }
-});
+data.forEach(p => {
+  const card = document.createElement("div");
+  card.classList.add("pelicula");
+  card.innerHTML = `
+    <img src="${p.poster || p.backdrop || '../storage/img/img5.jpg'}" alt="${p.title || p.name}">
+    <div class="info"><h3>${p.title || p.name || 'Sin título'}</h3></div>
+  `;
+  const theId = p._id;
+  card.addEventListener('click', () => {
+    if (!theId) {
+      console.warn('movie id missing for', p);
+      return;
+    }
+window.location.href = `peliculaAdmin.html?id=${theId}`;
 
-closeModal.addEventListener("click", () => {
-  modalGeneral.style.display = "none";
-});
-
-
-// ==========================
-// 🔹 Modal Update
-// ==========================
-const modalUpdate = document.getElementById("modalUpdate");
-const closeUpdateModal = document.getElementById("closeUpdateModal");
-
-const updateImg = document.getElementById("updateImg");
-const updateTitulo = document.getElementById("updateTitulo");
-const updateSummary = document.getElementById("updateSummary");
-const updateCategory = document.getElementById("updateCategory");
-const updateYear = document.getElementById("updateYear");
-const updatePopularity = document.getElementById("updatePopularity");
-
-let peliculaEnEdicion = null;
-
-function abrirModalUpdate(pelicula) {
-  peliculaEnEdicion = pelicula.id;
-
-  updateImg.src = pelicula.poster;
-  updateTitulo.value = pelicula.title;
-  updateSummary.value = pelicula.summary;
-  updateCategory.value = pelicula.genres;
-  updateYear.value = pelicula.year;
-  updatePopularity.value = pelicula.popularity;
-
-  modalUpdate.style.display = "flex";
-}
-
-closeUpdateModal.addEventListener("click", () => {
-  modalUpdate.style.display = "none";
-});
-
-// Abrir modal update desde el botón Update
-document.addEventListener("click", e => {
-  if (e.target && e.target.id === "openUpdate") {
-    modalGeneral.style.display = "none";
-
-    const pelicula = {
-      id: peliculaEnEdicion,
-      title: document.querySelector("#modalGeneral .titulo").textContent,
-      summary: document.querySelector("#modalGeneral .summary").textContent,
-      genres: document.querySelector("#modalGeneral .categorycontainer p:nth-child(2)").textContent,
-      year: document.querySelector("#modalGeneral .yearcontainer p:nth-child(2)").textContent,
-      popularity: document.querySelector("#modalGeneral .popularitycontainer p:nth-child(2)").textContent,
-      poster: document.querySelector("#modalGeneral img").src
-    };
-
-    abrirModalUpdate(pelicula);
-  }
-});
-
-// Submit Update (PUT)
-document.getElementById("updateForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const datosActualizados = {
-  title: updateTitulo.value,
-  summary: updateSummary.value,
-  year: parseInt(updateYear.value),   // número
-  popularity: parseFloat(updatePopularity.value), // número
-  poster: updateImg.value,    // URL del poster
-  backdrop: updateImg.value,  // puedes usar otra URL si la tienes
-  genres: updateCategory.value
-};
-
-try {
-  const res = await fetch(`http://62.169.28.169/movies/update-Pel/${peliculaEnEdicion}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(datosActualizados)
   });
-
-  if (!res.ok) throw new Error(`❌ Error ${res.status}`);
-
-  const data = await res.json();
-  console.log("✅ Película actualizada:", data);
-
-  modalUpdate.style.display = "none";
-  location.reload();
-} catch (err) {
-  console.error(err);
-  alert("Hubo un error al actualizar la película");
-}
-
+  carrusel.appendChild(card);
 });
