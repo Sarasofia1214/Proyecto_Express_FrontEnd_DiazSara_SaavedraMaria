@@ -53,18 +53,7 @@ prevBtn.addEventListener('click', () => mostrarSlide(slideIndex - 1));
 nextBtn.addEventListener('click', () => mostrarSlide(slideIndex + 1));
 cargarPeliculasCarrusel();
 
-function initCarrusel(containerId, apiUrl, visible = 5) {
-  const container = document.getElementById(containerId);
-  const carrusel = container.querySelector('.carrusel');
-  const prevBtn = container.querySelector('.prev');
-  const nextBtn = container.querySelector('.next');
 
-  let slideIndex = 0;
-  let peliculasData = [];
-
-
-
-}
 
 function initCarrusel(containerId, apiUrl, visible = 5) {
   const container = document.getElementById(containerId);
@@ -147,8 +136,7 @@ categorias.forEach(cat => {
     <h2>${cat.titulo}</h2>
     <div class="carruselContainer" id="${cat.id}">
       <div class="carrusel"></div>
-      <button class="prev">&#10094;</button>
-      <button class="next">&#10095;</button>
+      
     </div>
   `;
 
