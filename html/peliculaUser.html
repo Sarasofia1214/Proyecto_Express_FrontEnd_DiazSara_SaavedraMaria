@@ -12,7 +12,6 @@
             <img class="logo" src="../storage/img/RealFilms_Logo_Word.svg" alt="">
             <h1><a href="../html/inicioAdmin.html">HOME</a></h1>
             <h1><a href="#containerCarruseles">CATEGORIES</a></h1>
-            <h1>USERS</h1>
             <div class="containerbusqueda">
               <input class="buscador" type="text" placeholder="SEARCH">
                 <img class="lupa" src="" alt="">
@@ -34,27 +33,16 @@
       <img id="updateImg" src="../storage/img/img5.jpg" alt="">
     </div>
 
-    <form class="modalForm" id="updateForm">
-      <input type="text" id="updateTitulo" name="titulo" placeholder="Título">
-      <textarea id="updateSummary" name="summary" placeholder="Resumen"></textarea>
-      
-      <input type="text" id="updateCategory" name="category" placeholder="Categoría">
-      <input type="number" id="updateYear" name="year" placeholder="Año">
-      <input type="number" id="updatePopularity" name="popularity" placeholder="Popularidad">
-
-      <button type="submit">Update</button>
-    </form>
-  </div>
-</div>
-
-
+  
 <section class="reviews-section">
-  <h2 class="review">Reviews</h2>
+  <div class="reviews-header">
+    <h2 class="reviews-title">Reviews</h2>
+    <button id="addReviewBtn" class="btn-add">➕</button>
+  </div>
   <div id="reviewsContainer"></div>
 </section>
 
-
 </body>
-  <script src="../script/peliculasAdmin.js"></script>
-  <link rel="stylesheet" href="../styles/peliculasAdmin.css">
+  <script src="../script/peliculaUser.js"></script>
+  <link rel="stylesheet" href="../styles/peliculaUser.css">
 </html>

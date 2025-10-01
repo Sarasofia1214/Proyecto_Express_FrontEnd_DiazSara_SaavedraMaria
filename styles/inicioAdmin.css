@@ -5,30 +5,25 @@ body {
     background-color: rgb(0, 0, 0);
     color: white;
 }
-
 header {
     background: black;
     padding: 1vh 2vw;
 }
-
 .encabezado {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2vw;
 }
-
 .logo {
     height: 6vh;
     cursor: pointer;
 }
-
 .encabezado h1 {
     font-size: 1.2vw;
     margin: 0 1vw;
     cursor: pointer;
 }
-
 .buscador {
     flex: 1;
     display: flex;
@@ -40,19 +35,14 @@ header {
     font-size: 1vw;
 }
 .containerbusqueda{
-
-
     flex: 1;
     display: flex;
     justify-content:left;
- 
     background-color: #000;
     border-radius: 2vw;
     padding: 0.7vh 2vw;
     font-size: 1vw;
-
 }
-
 .usercontainer {
     display: flex;
     align-items: center;
@@ -69,8 +59,6 @@ header {
     font-size: 1vw;
     background-color: #000;
     color: white;
-
-    
 }
 
 .usericon {
@@ -78,6 +66,326 @@ header {
     border-radius: 50%;
     cursor: pointer;
 }
+.peliculaDetalle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+}
+
+.banner {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.banner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%; 
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #000 100%);
+  pointer-events: none; 
+}
+
+.detalleContenido {
+  background: rgba(0, 0, 0, 0.9); 
+  width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.detalleContenido h2 {
+  font-size: 6vw;
+  margin-bottom: 15px;
+}
+
+.detalleContenido .summary {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-around; 
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 30px auto; 
+}
+
+.meta div {
+  flex: 1; 
+  text-align: center;
+  font-size: 2vw;
+}
+
+
+.meta strong {
+  display: block;
+  font-size: 3vw;
+  margin-bottom: 5px;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.acciones button {
+  padding: 16px 60px;
+  border: none;
+  border-radius: 25px;
+  background-color: #d62828;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.acciones button:hover {
+  background-color: #f94144;
+}
+
+.modalContainer {
+ 
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modalContainer .modalContent {
+  background: #111;
+  color: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;  
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+
+.modalContainer .modalContent .img img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  object-fit: cover;
+  max-height: 200px;
+}
+
+
+.modalContainer .modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+}
+
+
+.modalContainer input,
+.modalContainer textarea {
+  width: 90%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  background: #222;
+  color: #fff;
+  outline: none;
+}
+
+.modalContainer textarea {
+  min-height: 80px;
+}
+
+.modalContainer .metaUpdate {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.modalContainer .metaUpdate div {
+  text-align: center;
+  flex: 1;
+}
+
+.modalContainer .metaUpdate strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.modalContainer button {
+  width: 90%;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  background: #d62828;
+  color: white;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+
+h2{
+  font-size: 1.5vw;
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 10px;
+  }
+
+  .encabezado {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .encabezado h1 {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  nav a {
+    font-size: 14px;
+    margin: 3px 8px;
+    display: inline-block; 
+  }
+
+  .buscador,
+  .input,
+  .containerbusqueda {
+    width: 100%;
+    max-width: 300px;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+
+  .usercontainer {
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .usericon {
+    height: 28px;
+  }
+
+  
+  .detalleContenido {
+    padding: 20px 10px;
+  }
+
+  .detalleContenido h2 {
+    font-size: 22px; 
+    line-height: 1.2;
+  }
+
+  .detalleContenido .summary {
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 0 5px;
+  }
+
+
+  .meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .meta div {
+    font-size: 14px;
+  }
+
+  .meta strong {
+    font-size: 16px;
+  }
+
+  /* 🔎 Botones */
+  .acciones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .acciones button {
+    width: 100%;
+    max-width: 280px;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .modalContainer .modalContent {
+    width: 95%;
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .modalContainer input,
+  .modalContainer textarea {
+    font-size: 13px;
+  }
+}
+
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center; 
+  margin-top: 20px;
+}
+
+.action-buttons button {
+  background-color: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;       
+  max-width: 250px;  
+}
+
+.action-buttons button:hover {
+  background-color: #b71c1c;
+}
+
 
 .carruselFotos {
   position: relative;
@@ -233,22 +541,6 @@ h2{
 .next {
   right: 10px;        
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

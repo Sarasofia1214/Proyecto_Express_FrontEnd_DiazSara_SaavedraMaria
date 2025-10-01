@@ -187,6 +187,7 @@ function initCarrusel(containerId, apiUrl) {
     }
   }
 
+
   cargarPeliculas();
 }
 
@@ -208,3 +209,90 @@ window.location.href = `peliculaAdmin.html?id=${theId}`;
   });
   carrusel.appendChild(card);
 });
+
+
+async function crearResena(movieId, comentario, calificacion) {
+  const token = localStorage.getItem("token");
+  try {
+    const res = await fetch(`http://62.169.28.169/resenas/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        id_pelicula: movieId,
+        comentario,
+        calificacion
+      })
+    });
+
+    if (!res.ok) throw new Error("Error al crear reseña");
+
+    alert("Reseña creada con éxito");
+    cargarResenas(); // recargar reseñas en pantalla
+  } catch (err) {
+    console.error(err);
+    alert("No se pudo crear la reseña");
+  }
+}
+
+
+async function editarResena(id, comentario, calificacion) {
+  const token = localStorage.getItem("token");
+  try {
+    const res = await fetch(`http://62.169.28.169/resenas/edit/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ comentario, calificacion })
+    });
+
+    if (!res.ok) throw new Error("Error al editar reseña");
+
+    alert("Reseña actualizada con éxito");
+    cargarResenas();
+  } catch (err) {
+    console.error(err);
+    alert("No se pudo editar la reseña");
+  }
+}
+
+
+const userId = localStorage.getItem("id_usuario");
+
+data.forEach(r => {
+  const review = document.createElement("div");
+  review.classList.add("review-item");
+
+  const canVote = r.id_usuario !== userId;
+
+  review.innerHTML = `
+    <div class="review-card">
+      <div class="review-user">
+        <div class="review-avatar">${r.comentario.charAt(0).toUpperCase()}</div>
+        <div>
+          <p><strong>${r.nombre_usuario || r.id_usuario}</strong></p>
+          <p>${r.comentario}</p>
+        </div>
+      </div>
+      <div class="review-actions">
+        <span><b>${r.calificacion} / 5</b></span>
+        ${canVote ? `
+          <button class="btn-like" data-id="${r._id}">👍</button>
+          <button class="btn-dislike" data-id="${r._id}">👎</button>
+        ` : ""}
+        ${r.id_usuario === userId ? `
+          <button class="btn-edit" data-id="${r._id}">✏️</button>
+        ` : ""}
+      </div>
+    </div>
+  `;
+  reviewsContainer.appendChild(review);
+});
+
+
+
+

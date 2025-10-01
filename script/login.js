@@ -31,12 +31,16 @@ loginBtn.addEventListener("click", async (e) => {
 
     const data = await response.json();
     const token = data[0]?.token;
+    const usuario = data[1]?.usuario;
     const isAdmin = data[1]?.admin;
 
     if (response.ok && token) {
+      // 🔑 Guardar sesión
       localStorage.setItem("token", token);
+      localStorage.setItem("usuario", usuario);
       localStorage.setItem("isAdmin", isAdmin); 
-      
+
+      // Redirección según el rol
       if (isAdmin) {
         window.location.href = "../html/inicioAdmin.html";
       } else {

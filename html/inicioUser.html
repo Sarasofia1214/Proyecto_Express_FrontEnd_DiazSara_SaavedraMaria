@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RealFilms Usuario</title>
+    <title>RealFilms Administrador</title>
 </head>
 <body>
     <header>
         <div class="encabezado">
             <img class="logo" src="../storage/img/RealFilms_Logo_Word.svg" alt="">
-            <h1>HOME</h1>
-            <h1>CATEGORIES</h1>
-            <div class="buscador"> SEARCH
+            <h1><a href="#carruselFotos">HOME</a></h1>
+            <h1><a href="#containerCarruseles">CATEGORIES</a></h1>
+            <h1>USERS</h1>
+            <div class="containerbusqueda">
+              <input class="buscador" type="text" placeholder="SEARCH">
                 <img class="lupa" src="" alt="">
             </div>
             <div class="usercontainer">
@@ -20,228 +22,24 @@
             </div>
         </div>
     </header>
-  
- <div class="carruselFotos">
+    
+<div class="carruselFotos" id="carruselFotos">
   <div class="slides">
-    <img src="../storage/img/img1.webp" alt="">
-    <img src="../storage/img/img2.jpeg" alt="">
-    <img src="../storage/img/img3.avif" alt="">
   </div>
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
 
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-
-    <div class="dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-    </div>
-
-   <div class="containerPopulares">
-  <h2>Most Popular</h2>
-
-  <div class="carrusel">
-  </div>
-
-  <button class="prevPopular">&#10094;</button>
-  <button class="nextPopular">&#10095;</button>
-</div>
-
- <div class="containerPopulares">
-  <h2>Most Popular</h2>
-
-  <div class="carrusel">
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Kumbalangi Nights</p>
-      <p class="año">2019</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">The Lunchbox</p>
-      <p class="año">2013</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Haider</p>
-      <p class="año">2014</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Aamis</p>
-      <p class="año">2019</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Court</p>
-      <p class="año">2014</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Masaan</p>
-      <p class="año">2015</p>
-    </div>
-  </div>
-
-
-
-   <div class="containerPopulares">
-  <h2>Most Popular</h2>
-
-  <div class="carrusel">
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Kumbalangi Nights</p>
-      <p class="año">2019</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">The Lunchbox</p>
-      <p class="año">2013</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Haider</p>
-      <p class="año">2014</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Aamis</p>
-      <p class="año">2019</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Court</p>
-      <p class="año">2014</p>
-    </div>
-
-    <div class="pelicula">
-      <img src="../storage/img/img4.jpg" alt="">
-      <p class="titulo">Masaan</p>
-      <p class="año">2015</p>
-    </div>
-  </div>
-
-
-<div class="containerRecommended">
-  <p class="titulo">Most Recommended</p>
-  
-
-  <div class="containerRecommended">
-    <button class="prevRecommended">&#10094;</button>
-    <div class="carusel" id="popularesTrack">
-    </div>
-    <button class="nextRecommended">&#10095;</button>
-  </div>
-
-<!-- MODAL GENERAL -->
-<div class="modalContainer" id="modalGeneral" style="display: none;">
-  <span class="closeModal" id="closeModal">&times;</span> 
-  <div class="img"><img src="../storage/img/img5.jpg" alt=""></div>
-  <div class="infomain">
-  </div>
-
-  <div class="details">
-
-  </div>
-
-  <!-- plusicon para abrir modal de reseñas -->
-  <div class="reviewsContainer">
-    <div class="addreviewcontainer">
-      <p>Add Review</p>
-      <img class="plusicon" src="../storage/img/plusicon.webp" alt="">
-    </div>
-  </div>
-
-  <!-- 🔥 Aquí se muestran las reseñas ya creadas -->
-  <div class="resenaContainer">
-
-    <div class="reviewCard">
-    </div>
-
-    <div class="reviewCard">
-      <div class="reviewLeft">
-        <div class="avatar">D</div>
-        <div class="reviewText">
-          <p class="reviewName">Davion</p>
-          <p class="reviewComment">
-            Laboriosam voluptatibus voluptatibus deserunt repellendus.
-          </p>
-        </div>
-      </div>
-      <div class="reviewRight">
-        <div class="reviewScore">5 - 10</div>
-        <div class="like-dislike">
-          <i class="fa fa-thumbs-up"></i>
-          <i class="fa fa-thumbs-down"></i>
-        </div>
-      </div>
-    </div>
-
+  <div class="dots">
   </div>
 </div>
 
+
+ <div id="containerCarruseles">
  
- 
-
-<div class="modalContainer" id="modalReviews" style="display: none;">
-  <span class="closeModal">&times;</span> 
-  <div class="img">
-    <img src="../storage/img/img5.jpg" alt="">
-  </div>
-  <div>
-    <p class="titulo">A MINECRAFT MOVIE</p>
-    <p class="summary">
-      In Minecraft, players explore a procedurally generated, three-dimensional 
-      world with virtually infinite terrain made up of voxels.
-    </p>
-  </div>
-
-  <div class="details">
-    <div class="yearcontainer">
-      <p>Year</p>
-      <p>2024</p>
-    </div>
-    <div class="categorycontainer">
-      <p>Category</p>
-      <p>Action</p>
-    </div>
-    <div class="popularitycontainer">
-      <p>Popularity</p>
-      <p>0</p>
-    </div>
-  </div>
-
-  <div class="reviewsContainer">
-    <textarea 
-      class="reviewInput" 
-      placeholder="Write your review here..."
-      rows="3"></textarea>
-
-    <div class="rangeContainer">
-      <input type="range" min="1" max="10" value="5" class="rangeSlider">
-    </div>
-
-    <button class="sendReviewBtn">Send Review</button>
-  </div>
-</div>
+ </div>
 
 
-
-
-  
 </body>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../styles/inicioUser.css">
 <script src="../script/inicioUser.js"></script>
 </html>

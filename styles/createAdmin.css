@@ -1,0 +1,156 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+header {
+    background: black;
+    padding: 1vh 2vw;
+}
+
+.encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2vw;
+}
+
+.logo {
+    height: 6vh;
+    cursor: pointer;
+}
+
+.encabezado h1 {
+    font-size: 1.2vw;
+    margin: 0 1vw;
+    cursor: pointer;
+}
+
+.buscador {
+    flex: 1;
+    display: flex;
+    justify-content:left;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: #000;
+    border-radius: 2vw;
+    padding: 0.7vh 2vw;
+    font-size: 1vw;
+}
+.containerbusqueda{
+
+
+    flex: 1;
+    display: flex;
+    justify-content:left;
+ 
+    background-color: #000;
+    border-radius: 2vw;
+    padding: 0.7vh 2vw;
+    font-size: 1vw;
+
+}
+
+.usercontainer {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}
+.input{
+     flex: 1;
+    display: flex;
+    justify-content:left;
+    border: 1px solid rgb(255, 255, 255);
+    
+    border-radius: 2vw;
+    padding: 0.7vh 1vw;
+    font-size: 1vw;
+    background-color: #000;
+    color: white;
+
+    
+}
+
+.usericon {
+    height: 3vh;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.crear-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+.crear-form {
+  background: #1c1c1c;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  text-align: center;
+}
+
+.crear-form h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.crear-form label {
+  display: block;
+  text-align: left;
+  margin: 15px 0 5px;
+  font-weight: bold;
+}
+
+.crear-form input,
+.crear-form textarea,
+.crear-form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  margin-bottom: 15px;
+}
+
+.crear-form textarea {
+  resize: none;
+  height: 100px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+.row div {
+  flex: 1;
+}
+
+.btn-create {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.btn-create:hover {
+  background: #b20710;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+
+}

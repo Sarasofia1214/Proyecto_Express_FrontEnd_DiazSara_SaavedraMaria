@@ -389,6 +389,107 @@ h2{
 
 
 
+.reviews-section {
+  margin-top: 2rem;
+  color: white;
+}
+
+.review-item {
+  background: white;
+  color: black;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-avatar {
+  background: #3b82f6;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+/* Centrar el título */
+.review {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 20px 0;
+}
+
+/* Contenedor general */
+#reviewsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centrar reseñas */
+  gap: 15px;
+  margin: 20px auto;
+  max-width: 1000px; /* ancho máximo */
+}
+
+
+.review-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 15px 20px;
+  width: 100%;
+  max-width: 900px; /* ancho limitado */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Parte del usuario */
+.review-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Avatar con inicial */
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #007bff;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Botón eliminar */
+.btn-delete {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #e74c3c;
+  transition: transform 0.2s ease;
+}
+.btn-delete:hover {
+  transform: scale(1.2);
+}
 
 
 

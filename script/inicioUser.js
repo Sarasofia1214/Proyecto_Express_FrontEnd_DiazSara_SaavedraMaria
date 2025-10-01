@@ -1,173 +1,298 @@
-const URL_PEL = 'http://62.169.28.169/movies/all-pel'
-const URL_MPOP = 'http://62.169.28.169/movies/pel-pop'
-const URL_SEARCH = 'http://62.169.28.169/movies/search/'
-const URL_Pid = 'http://62.169.28.169/resenas/listbymovie/'
 
-const slides = document.querySelector(".slides");
-const dots = document.querySelectorAll(".dot");
-let index = 0;
+const API_URL = "http://62.169.28.169/movies/all-Pel";
 
-function slidesMain(){
-  fetch(URL_PEL)
-  .then(Response => Response.json())
-  .then(data=>{
-    slides.innerHTML = `
-    <img src="${data[0].backdrop}" alt="">
-    <img src="${data[1].backdrop}" alt="">
-    <img src="${data[2].backdrop}" alt="">
-    `
-  })
-  .catch(error => console.error('Error fetching slides:', error));
-}
+const carrusel = document.getElementById('carruselFotos');
+const slidesContainer = carrusel.querySelector('.slides');
+const dotsContainer = carrusel.querySelector('.dots');
+const prevBtn = carrusel.querySelector('.prev');
+const nextBtn = carrusel.querySelector('.next');
 
-const showSlide = (i) => {
-  index = (i + dots.length) % dots.length;
-  slides.style.transform = `translateX(${-index * 100}%)`;
-  dots.forEach((dot, j) => dot.classList.toggle("active", j === index));
+let slideIndex = 0;
+
+const mostrarSlide = index => {
+  const slides = slidesContainer.querySelectorAll('img');
+  const dots = dotsContainer.querySelectorAll('.dot');
+  slideIndex = (index + slides.length) % slides.length; 
+
+  slides.forEach((slide, i) => {
+    slide.style.display = i === slideIndex ? "block" : "none";
+  });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === slideIndex);
+  });
 };
 
-document.querySelector(".next").onclick = () => showSlide(index + 1);
-document.querySelector(".prev").onclick = () => showSlide(index - 1);
-dots.forEach((dot, i) => dot.onclick = () => showSlide(i));
+const cargarPeliculasCarrusel = async () => {
+  try {
+    const response = await fetch(API_URL);
+    const peliculas = await response.json();
+    const topPeliculas = peliculas.slice(0, 30);
 
-setInterval(() => showSlide(index + 1), 5000);
+    slidesContainer.innerHTML = '';
+    dotsContainer.innerHTML = '';
+    topPeliculas.forEach((p, i) => {
+      const img = document.createElement('img');
+      img.src = p.backdrop || p.poster || "../storage/img/default.jpg";
+      slidesContainer.appendChild(img);
+
+      const dot = document.createElement('span');
+      dot.className = `dot${i === 0 ? ' active' : ''}`;
+      dot.addEventListener('click', () => mostrarSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    mostrarSlide(0);
+  } catch (err) {
+  }
+};
 
 
-// Va pasando las img de las peliculas
-const carrusel = document.querySelector(".carrusel");
-const prevp = document.querySelector(".prevPopular");
-const nextp = document.querySelector(".nextPopular");
+setInterval(() => mostrarSlide(slideIndex + 1), 5000);
+prevBtn.addEventListener('click', () => mostrarSlide(slideIndex - 1));
+nextBtn.addEventListener('click', () => mostrarSlide(slideIndex + 1));
+cargarPeliculasCarrusel();
 
-async function popMore(){
-  fetch(URL_MPOP)
-  .then(Response=>Response.json())
-  .then(data=>{
-    let pp = ``
-    for ( let i = 0; i < 20; i++ ){
-      pp += `
-      <div data-movie-id="${data[i]._id}" class="pelicula">
-      <img src="${data[i].poster}" alt="">
-      <p class="titulo">${data[i].title}</p>
-      <p class="año">${data[i].year}</p>
-      </div>
-      `
-    }
-    carrusel.innerHTML = pp
-    const peliculas = document.querySelectorAll(".pelicula");
-    peliculas.forEach(pelicula => {
-      pelicula.addEventListener("click", () => {
-        const id = pelicula.dataset.movieId;
-        modalReviews.style.display = "none"; 
-        modalGeneral.style.display = "block";
-        fetch(`${URL_SEARCH}${id}`)
-        .then(Response=>Response.json())
-        .then(data=>{
-          console.log(data)
-          const datas = data[0]
-          const main = document.querySelector(".infomain")
-          main.innerHTML = `
-          <p class="titulo">${datas.title}</p>
-          <p class="summary">
-            ${datas.summary}
-          </p>
-          `;
-          const detail = document.querySelector(".details")
-          detail.innerHTML = `
-          <div class="yearcontainer">
-            <p>Category</p>
-            <p>${datas.genres}</p>
+
+
+function initCarrusel(containerId, apiUrl, visible = 5) {
+  const container = document.getElementById(containerId);
+  const carrusel = container.querySelector('.carrusel');
+  const prevBtn = container.querySelector('.prev');
+  const nextBtn = container.querySelector('.next');
+
+  let scrollAmount = 0;
+
+  async function cargarPeliculas() {
+    try {
+      const res = await fetch(apiUrl);
+      if (!res.ok) throw new Error("Error al cargar películas");
+      const data = await res.json();
+
+      carrusel.innerHTML = "";
+      data.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("pelicula");
+
+        card.innerHTML = `
+          <img src="${p.poster || p.backdrop || "../storage/img/img5.jpg"}" alt="${p.titulo}">
+          <div class="info">
+            <h3>${p.title || "Sin título"}</h3>
+            <p>${p.year || ""}</p>
           </div>
-          <div class="categorycontainer">
-            <p>Year</p>
-            <p>${datas.year}</p>
-          </div>
-          <div class="popularitycontainer">
-            <p>Popularity</p>
-            <p>${datas.popularity}</p>
-          </div>
-          `;
-          document.querySelector('#modalGeneral .img img').src = datas.backdrop;
-          fetch(`${URL_Pid}${datas._id}`)
-          .then(Response=>Response.json())
-          .then(data=>{
-            const cardRR = document.querySelector('.reviewCard')
-            cardRR.innerHTML = `
-            <div class="reviewLeft">
-              <div class="avatar">M</div>
-              <div class="reviewText">
-                <p class="reviewName">Maudie</p>
-                <p class="reviewComment">
-                  Itaque dolor fuga natus eveniet. Itaque dolor fuga natus eveniet.
-                </p>
-              </div>
-            </div>
-            <div class="reviewRight">
-              <div class="reviewScore">7 - 10</div>
-              <div class="like-dislike">
-                <i class="fa fa-thumbs-up"></i>
-                <i class="fa fa-thumbs-down"></i>
-              </div>
-            </div>
-            `
-          })
-        })
+        `;
+
+        carrusel.appendChild(card);
       });
-    });
-  })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+  cargarPeliculas();
 }
 
-let offset = 0;
-const step = 200; 
 
-nextp.onclick = () => {
-  offset -= step;
-  if (Math.abs(offset) >= carrusel.scrollWidth - carrusel.clientWidth) {
-    offset = 0; 
-  }
-  carrusel.style.transform = `translateX(${offset}px)`;
-};
+const categorias = [
+  { id: "Populares", titulo: "Most popular", url: "http://62.169.28.169/movies/pel-pop" },
+  { id: "Accion", titulo: "Accion", url: "http://62.169.28.169/movies/genre-Pel/Accion" },
+  { id: "ActionAdventure", titulo: "Action & Adventure", url: "http://62.169.28.169/movies/genre-Pel/Action%20%26%20adventure" },
+  { id: "Animacion", titulo: "Animacion", url: "http://62.169.28.169/movies/genre-Pel/Animacion" },
+  { id: "Aventura", titulo: "Aventura", url: "http://62.169.28.169/movies/genre-Pel/Aventura" },
+  { id: "Belica", titulo: "Belica", url: "http://62.169.28.169/movies/genre-Pel/Belica" },
+  { id: "CienciaFiccion", titulo: "Ciencia Ficcion", url: "http://62.169.28.169/movies/genre-Pel/Ciencia%20ficcion" },
+  { id: "Comedia", titulo: "Comedia", url: "http://62.169.28.169/movies/genre-Pel/Comedia" },
+  { id: "Crimen", titulo: "Crimen", url: "http://62.169.28.169/movies/genre-Pel/Crimen" },
+  { id: "Documental", titulo: "Documental", url: "http://62.169.28.169/movies/genre-Pel/Documental" },
+  { id: "Drama", titulo: "Drama", url: "http://62.169.28.169/movies/genre-Pel/Drama" },
+  { id: "Familia", titulo: "Familia", url: "http://62.169.28.169/movies/genre-Pel/Familia" },
+  { id: "Fantasia", titulo: "Fantasia", url: "http://62.169.28.169/movies/genre-Pel/Fantasia" },
+  { id: "Historia", titulo: "Historia", url: "http://62.169.28.169/movies/genre-Pel/Historia" },
+  { id: "Kids", titulo: "Kids", url: "http://62.169.28.169/movies/genre-Pel/Kids" },
+  { id: "Misterio", titulo: "Misterio", url: "http://62.169.28.169/movies/genre-Pel/Misterio" },
+  { id: "Musica", titulo: "Musica", url: "http://62.169.28.169/movies/genre-Pel/Musica" },
+  { id: "News", titulo: "News", url: "http://62.169.28.169/movies/genre-Pel/News" },
+  { id: "PeliculaTv", titulo: "Pelicula de TV", url: "http://62.169.28.169/movies/genre-Pel/Pelicula%20de%20tv" },
+  { id: "Reality", titulo: "Reality", url: "http://62.169.28.169/movies/genre-Pel/Reality" },
+  { id: "Romance", titulo: "Romance", url: "http://62.169.28.169/movies/genre-Pel/Romance" },
+  { id: "SciFiFantasy", titulo: "Sci-Fi & Fantasy", url: "http://62.169.28.169/movies/genre-Pel/Sci-fi%20%26%20fantasy" },
+  { id: "Soap", titulo: "Soap", url: "http://62.169.28.169/movies/genre-Pel/Soap" },
+  { id: "Suspense", titulo: "Suspense", url: "http://62.169.28.169/movies/genre-Pel/Suspense" },
+  { id: "Talk", titulo: "Talk", url: "http://62.169.28.169/movies/genre-Pel/Talk" },
+  { id: "Terror", titulo: "Terror", url: "http://62.169.28.169/movies/genre-Pel/Terror" },
+  { id: "WarPolitics", titulo: "War & Politics", url: "http://62.169.28.169/movies/genre-Pel/War%20%26%20politics" },
+  { id: "Western", titulo: "Western", url: "http://62.169.28.169/movies/genre-Pel/Western" }
+];
 
-prevp.onclick = () => {
-  offset += step;
-  if (offset > 0) {
-    offset = -(carrusel.scrollWidth - carrusel.clientWidth);
-  }
-  carrusel.style.transform = `translateX(${offset}px)`;
-};
+
+const containerCarruseles = document.getElementById("containerCarruseles");
+
+categorias.forEach(cat => {
+  const section = document.createElement("section");
+  section.classList.add("categoria");
+
+  section.innerHTML = `
+    <h2>${cat.titulo}</h2>
+    <div class="carruselContainer" id="${cat.id}">
+      <div class="carrusel"></div>
+      
+    </div>
+  `;
+
+  containerCarruseles.appendChild(section);
 
 
-// Logica que muestra el modal
-document.addEventListener("DOMContentLoaded", () => {
-  const modalGeneral = document.getElementById("modalGeneral");
-  const closeBtnGeneral = document.getElementById("closeModal");
-
-  const modalReviews = document.getElementById("modalReviews");
-  const closeBtnReviews = modalReviews.querySelector(".sendReviewBtn");
-  const plusIcon = document.querySelector("#modalGeneral .plusicon");
-
-
-  
-
-  closeBtnGeneral.addEventListener("click", () => {
-    modalGeneral.style.display = "none";
-    modalReviews.style.display = "none"; 
-  });
-
-  // abrir modal reviews desde el +
-  if (plusIcon) {
-    plusIcon.addEventListener("click", (e) => {
-      e.stopPropagation(); 
-      modalGeneral.style.display = "none";   
-      modalReviews.style.display = "block";  
-    });
-  }
-
-  closeBtnReviews.addEventListener("click", () => {
-    modalReviews.style.display = "none";
-  });
-
-  slidesMain();
-  popMore();
+  initCarrusel(cat.id, cat.url);
 });
+
+
+function initCarrusel(containerId, apiUrl) {
+  const container = document.getElementById(containerId);
+  const carrusel = container.querySelector('.carrusel');
+  const prevBtn = container.querySelector('.prev');
+  const nextBtn = container.querySelector('.next');
+
+  async function cargarPeliculas() {
+    try {
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+
+      carrusel.innerHTML = "";
+      data.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("pelicula");
+
+        card.innerHTML = `
+          <img src="${p.poster || p.backdrop || '../storage/img/img5.jpg'}" alt="${p.title || p.name}">
+          <div class="info">
+            <h3>${p.title || p.name || "Sin título"}</h3>
+          </div>
+        `;
+
+        const theId = p._id || p.id;
+        card.addEventListener("click", () => {
+          if (!theId) {
+            console.warn("ID no encontrado para película:", p);
+            return;
+          }
+         window.location.href = `peliculaAdmin.html?id=${theId}`;
+
+        });
+
+        carrusel.appendChild(card);
+      });
+    } catch (error) {
+      console.error("Error al cargar películas", error);
+    }
+  }
+
+
+  cargarPeliculas();
+}
+
+data.forEach(p => {
+  const card = document.createElement("div");
+  card.classList.add("pelicula");
+  card.innerHTML = `
+    <img src="${p.poster || p.backdrop || '../storage/img/img5.jpg'}" alt="${p.title || p.name}">
+    <div class="info"><h3>${p.title || p.name || 'Sin título'}</h3></div>
+  `;
+  const theId = p._id;
+  card.addEventListener('click', () => {
+    if (!theId) {
+      console.warn('movie id missing for', p);
+      return;
+    }
+window.location.href = `peliculaAdmin.html?id=${theId}`;
+
+  });
+  carrusel.appendChild(card);
+});
+
+
+async function crearResena(movieId, comentario, calificacion) {
+  const token = localStorage.getItem("token");
+  try {
+    const res = await fetch(`http://62.169.28.169/resenas/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        id_pelicula: movieId,
+        comentario,
+        calificacion
+      })
+    });
+
+    if (!res.ok) throw new Error("Error al crear reseña");
+
+    alert("Reseña creada con éxito");
+    cargarResenas(); // recargar reseñas en pantalla
+  } catch (err) {
+    console.error(err);
+    alert("No se pudo crear la reseña");
+  }
+}
+
+
+async function editarResena(id, comentario, calificacion) {
+  const token = localStorage.getItem("token");
+  try {
+    const res = await fetch(`http://62.169.28.169/resenas/edit/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ comentario, calificacion })
+    });
+
+    if (!res.ok) throw new Error("Error al editar reseña");
+
+    alert("Reseña actualizada con éxito");
+    cargarResenas();
+  } catch (err) {
+    console.error(err);
+    alert("No se pudo editar la reseña");
+  }
+}
+
+
+const userId = localStorage.getItem("id_usuario");
+
+data.forEach(r => {
+  const review = document.createElement("div");
+  review.classList.add("review-item");
+
+  const canVote = r.id_usuario !== userId;
+
+  review.innerHTML = `
+    <div class="review-card">
+      <div class="review-user">
+        <div class="review-avatar">${r.comentario.charAt(0).toUpperCase()}</div>
+        <div>
+          <p><strong>${r.nombre_usuario || r.id_usuario}</strong></p>
+          <p>${r.comentario}</p>
+        </div>
+      </div>
+      <div class="review-actions">
+        <span><b>${r.calificacion} / 5</b></span>
+        ${canVote ? `
+          <button class="btn-like" data-id="${r._id}">👍</button>
+          <button class="btn-dislike" data-id="${r._id}">👎</button>
+        ` : ""}
+        ${r.id_usuario === userId ? `
+          <button class="btn-edit" data-id="${r._id}">✏️</button>
+        ` : ""}
+      </div>
+    </div>
+  `;
+  reviewsContainer.appendChild(review);
+});
+
+
 
 

@@ -176,82 +176,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-const reviewsContainer = document.getElementById("reviewsContainer");
 
-// Obtenemos el id de la película desde la URL
-const urlParams = new URLSearchParams(window.location.search);
-const movieId = urlParams.get("id");
 
-// Cargar reseñas al iniciar
-async function cargarResenas() {
-  try {
-    const res = await fetch(`http://62.169.28.169/resenas/listbymovie/${movieId}`);
-    if (!res.ok) throw new Error("Error al obtener reseñas");
+function renderReviews(reviews) {
+  const container = document.getElementById("reviewsContainer");
+  container.innerHTML = ""; // limpiar antes de renderizar
 
-    const data = await res.json();
-    reviewsContainer.innerHTML = ""; // limpiar antes de pintar
+  reviews.forEach(r => {
+    const card = document.createElement("div");
+    card.classList.add("review-card");
 
-    if (data.length === 0) {
-      reviewsContainer.innerHTML = "<p>No hay reseñas para esta película.</p>";
-      return;
-    }
+    card.innerHTML = `
+      <h3 class="review-author">${r.titulo}</h3>
+      <p class="review-text">${r.comentario}</p>
+    `;
 
-    data.forEach(r => {
-      const review = document.createElement("div");
-      review.classList.add("review-item");
-      review.innerHTML = `
-        <div class="review-card">
-          <div class="review-user">
-            <div class="review-avatar">${r.comentario.charAt(0).toUpperCase()}</div>
-            <div>
-              <p><strong>${r.id_usuario}</strong></p>
-              <p>${r.comentario}</p>
-            </div>
-          </div>
-          <div class="review-actions">
-            <span><b>${r.calificacion} / 5</b></span>
-            <button class="btn-delete" data-id="${r._id}">🗑️</button>
-          </div>
-        </div>
-      `;
-      reviewsContainer.appendChild(review);
-    });
-
-    document.querySelectorAll(".btn-delete").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const reviewId = btn.getAttribute("data-id");
-        if (confirm("¿Eliminar esta reseña?")) {
-          await deleteResena(reviewId); // ✅ nombre corregido
-        }
-      });
-    });
-  } catch (err) {
-    console.error(err);
-    reviewsContainer.innerHTML = "<p>Error cargando reseñas</p>";
-  }
+    container.appendChild(card);
+  });
 }
-
-async function deleteResena(id) {
-  const token = localStorage.getItem("token"); // o de donde lo estés guardando
-  try {
-    const response = await fetch(`http://62.169.28.169/resenas/delete/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`, // 🔑 Aquí va el token
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al eliminar la reseña");
-    }
-
-    alert("Reseña eliminada con éxito");
-    cargarResenas(); // 🔄 recargar reseñas
-  } catch (error) {
-    console.error(error);
-    alert("No se pudo eliminar la reseña");
-  }
-}
-
-cargarResenas();
