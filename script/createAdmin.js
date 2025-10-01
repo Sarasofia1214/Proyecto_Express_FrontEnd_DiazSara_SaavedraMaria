@@ -9,27 +9,34 @@ const categorias = [
   "Talk", "Terror", "War & Politics", "Western"
 ];
 
+// Poblar select
 categorias.forEach(cat => {
   const option = document.createElement("option");
   option.value = cat;
   option.textContent = cat;
   categorySelect.appendChild(option);
 });
+
+
+const titleInput = document.getElementById("titleInput");
+const summaryInput = document.getElementById("summaryInput");
+const yearInput = document.getElementById("yearInput");
+const popularityInput = document.getElementById("popularityInput");
+const posterInput = document.getElementById("posterInput");
+const backdropInput = document.getElementById("backdropInput");
+const genresInput = document.getElementById("categorySelect");
+
 formNueva.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  let formData = Object.fromEntries(new FormData(formNueva));
-
-const newPelicula = {
-  title: titleInput.value.trim(),
-  summary: summaryInput.value.trim(),
-  year: parseInt(yearInput.value, 10) || null,
-  popularity: parseFloat(popularityInput.value) || null,
-  poster: posterInput.value.trim(),
-  backdrop: backdropInput.value.trim(),
-  genres: genresInput.value.trim()
-}
-
+  const newPelicula = {
+    title: titleInput.value.trim(),
+    year: parseInt(yearInput.value, 10) || null,
+    popularity: parseFloat(popularityInput.value) || null,
+    poster: posterInput.value.trim(),
+    backdrop: backdropInput.value.trim(),
+    genres: genresInput.value.trim()
+  };
 
   try {
     const token = localStorage.getItem("token");
@@ -44,7 +51,7 @@ const newPelicula = {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
-      body: JSON.stringify(nuevaPelicula)
+      body: JSON.stringify(newPelicula) 
     });
 
     if (!res.ok) {
